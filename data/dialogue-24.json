@@ -1,0 +1,1700 @@
+{
+  "schema": "kmb.dataset/v1",
+  "dataset_id": "kmb-dialogue-20261003-4",
+  "seed": 20261003,
+  "provenance": {
+    "kind": "programmatic_synthetic",
+    "human_gold": false,
+    "oracle": "seeded fact values, keys, policies and revisions; unchanged assertions; dialogue retention intent",
+    "source_dataset_id": "kmb-core-20261003-4",
+    "input_style": "office_handover_dialogue",
+    "subject_contrast": {
+      "discrimination-0000": "distinct",
+      "discrimination-0001": "distinct",
+      "discrimination-0002": "similar",
+      "discrimination-0003": "similar"
+    }
+  },
+  "cases": [
+    {
+      "id": "persistence-0000",
+      "dimension": "persistence",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "季度财务归档",
+          "key": "deployment_path",
+          "value": "/srv/projects/12fdd593c59ac501",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这周由你接手下面这个办公项目，我先把正式设置交代清楚。\n「季度财务归档」的部署目录是「/srv/projects/12fdd593c59ac501」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「季度财务归档」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「季度财务归档」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/12fdd593c59ac501",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/12fdd593c59ac501",
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "id": "persistence-0001",
+      "dimension": "persistence",
+      "stratum": "symbolic_format",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "会议纪要整理",
+          "key": "export_format",
+          "value": "FORMAT_24ea8fef05706cbb",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这周由你接手下面这个办公项目，我先把正式设置交代清楚。\n「会议纪要整理」的导出格式标识是「FORMAT_24ea8fef05706cbb」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「会议纪要整理」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「会议纪要整理」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_24ea8fef05706cbb",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_24ea8fef05706cbb",
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "id": "persistence-0002",
+      "dimension": "persistence",
+      "stratum": "opaque_canary",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "资产盘点",
+          "key": "handover_code",
+          "value": "HANDOVER_e6092cf70eb62485",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这周由你接手下面这个办公项目，我先把正式设置交代清楚。\n「资产盘点」的交接编号是「HANDOVER_e6092cf70eb62485」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「资产盘点」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「资产盘点」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_e6092cf70eb62485",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_e6092cf70eb62485",
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "id": "persistence-0003",
+      "dimension": "persistence",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "工单知识库",
+          "key": "deployment_path",
+          "value": "/srv/projects/c6f35e4950ba70b6",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这周由你接手下面这个办公项目，我先把正式设置交代清楚。\n同事在英文登记簿中写的是：\nFor 工单知识库, the deployment directory is /srv/projects/c6f35e4950ba70b6.\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「工单知识库」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「工单知识库」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c6f35e4950ba70b6",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c6f35e4950ba70b6",
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "id": "retrieval-0000",
+      "dimension": "retrieval",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "预算初稿",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_c970c27e6e51fcf4_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "采购登记",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_c970c27e6e51fcf4_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "访客登记",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_c970c27e6e51fcf4_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "物品借用",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_c970c27e6e51fcf4_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "年度报表汇总",
+          "key": "deployment_path",
+          "value": "/srv/projects/104d6bf2fbefd68f",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "整理员：今天一起移交几个项目的登记信息，请按各自的项目名称分别记录。\n「预算初稿」的部署目录是「DISTRACTOR_c970c27e6e51fcf4_0」。\n「采购登记」的部署目录是「DISTRACTOR_c970c27e6e51fcf4_1」。\n「访客登记」的部署目录是「DISTRACTOR_c970c27e6e51fcf4_2」。\n「物品借用」的部署目录是「DISTRACTOR_c970c27e6e51fcf4_3」。\n「年度报表汇总」的部署目录是「/srv/projects/104d6bf2fbefd68f」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「年度报表汇总」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/104d6bf2fbefd68f",
+          "alternatives": [
+            "DISTRACTOR_c970c27e6e51fcf4_0",
+            "DISTRACTOR_c970c27e6e51fcf4_1",
+            "DISTRACTOR_c970c27e6e51fcf4_2",
+            "DISTRACTOR_c970c27e6e51fcf4_3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "retrieval-0001",
+      "dimension": "retrieval",
+      "stratum": "symbolic_format",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "预算初稿",
+          "key": "export_format",
+          "value": "DISTRACTOR_99c0fdcbe189ac71_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "采购登记",
+          "key": "export_format",
+          "value": "DISTRACTOR_99c0fdcbe189ac71_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "访客登记",
+          "key": "export_format",
+          "value": "DISTRACTOR_99c0fdcbe189ac71_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "物品借用",
+          "key": "export_format",
+          "value": "DISTRACTOR_99c0fdcbe189ac71_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "客户资料归档",
+          "key": "export_format",
+          "value": "FORMAT_8130704ed047bb1d",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "整理员：今天一起移交几个项目的登记信息，请按各自的项目名称分别记录。\n同事在英文登记簿中写的是：\nFor 预算初稿, the export format identifier is DISTRACTOR_99c0fdcbe189ac71_0.\nFor 采购登记, the export format identifier is DISTRACTOR_99c0fdcbe189ac71_1.\nFor 访客登记, the export format identifier is DISTRACTOR_99c0fdcbe189ac71_2.\nFor 物品借用, the export format identifier is DISTRACTOR_99c0fdcbe189ac71_3.\nFor 客户资料归档, the export format identifier is FORMAT_8130704ed047bb1d.\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「客户资料归档」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_8130704ed047bb1d",
+          "alternatives": [
+            "DISTRACTOR_99c0fdcbe189ac71_0",
+            "DISTRACTOR_99c0fdcbe189ac71_1",
+            "DISTRACTOR_99c0fdcbe189ac71_2",
+            "DISTRACTOR_99c0fdcbe189ac71_3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "retrieval-0002",
+      "dimension": "retrieval",
+      "stratum": "opaque_canary",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "预算初稿",
+          "key": "handover_code",
+          "value": "DISTRACTOR_baee3e8f54ce5062_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "采购登记",
+          "key": "handover_code",
+          "value": "DISTRACTOR_baee3e8f54ce5062_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "访客登记",
+          "key": "handover_code",
+          "value": "DISTRACTOR_baee3e8f54ce5062_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "物品借用",
+          "key": "handover_code",
+          "value": "DISTRACTOR_baee3e8f54ce5062_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "采购申请汇总",
+          "key": "handover_code",
+          "value": "HANDOVER_c5d75bfd18d3ee9e",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "整理员：今天一起移交几个项目的登记信息，请按各自的项目名称分别记录。\n「预算初稿」的交接编号是「DISTRACTOR_baee3e8f54ce5062_0」。\n「采购登记」的交接编号是「DISTRACTOR_baee3e8f54ce5062_1」。\n「访客登记」的交接编号是「DISTRACTOR_baee3e8f54ce5062_2」。\n「物品借用」的交接编号是「DISTRACTOR_baee3e8f54ce5062_3」。\n「采购申请汇总」的交接编号是「HANDOVER_c5d75bfd18d3ee9e」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「采购申请汇总」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_c5d75bfd18d3ee9e",
+          "alternatives": [
+            "DISTRACTOR_baee3e8f54ce5062_0",
+            "DISTRACTOR_baee3e8f54ce5062_1",
+            "DISTRACTOR_baee3e8f54ce5062_2",
+            "DISTRACTOR_baee3e8f54ce5062_3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "retrieval-0003",
+      "dimension": "retrieval",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "预算初稿",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_8da882ea1c81cf70_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "采购登记",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_8da882ea1c81cf70_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "访客登记",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_8da882ea1c81cf70_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "物品借用",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_8da882ea1c81cf70_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "质量检查登记",
+          "key": "deployment_path",
+          "value": "/srv/projects/325af67cdc700d6d",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "整理员：今天一起移交几个项目的登记信息，请按各自的项目名称分别记录。\n「预算初稿」的部署目录是「DISTRACTOR_8da882ea1c81cf70_0」。\n「采购登记」的部署目录是「DISTRACTOR_8da882ea1c81cf70_1」。\n「访客登记」的部署目录是「DISTRACTOR_8da882ea1c81cf70_2」。\n「物品借用」的部署目录是「DISTRACTOR_8da882ea1c81cf70_3」。\n「质量检查登记」的部署目录是「/srv/projects/325af67cdc700d6d」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「质量检查登记」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/325af67cdc700d6d",
+          "alternatives": [
+            "DISTRACTOR_8da882ea1c81cf70_0",
+            "DISTRACTOR_8da882ea1c81cf70_1",
+            "DISTRACTOR_8da882ea1c81cf70_2",
+            "DISTRACTOR_8da882ea1c81cf70_3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "update-0000",
+      "dimension": "update",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "报销材料整理",
+          "key": "deployment_path",
+          "value": "/srv/projects/6ce044b225d23fed",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "报销材料整理",
+          "key": "deployment_path",
+          "value": "CURRENT_099fb75790142f4a",
+          "policy": "retain",
+          "revision": 2
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：先交代上午核定的项目设置，这一版目前有效。\n「报销材料整理」的部署目录是「/srv/projects/6ce044b225d23fed」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "项目负责人：下午已经正式修订交接设置。「报销材料整理」的部署目录是「CURRENT_099fb75790142f4a」。请用这一版更新长期记忆中的同一项目设置，上午交接的旧值已经失效，以后查询或使用时以这次修订为准。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「报销材料整理」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "CURRENT_099fb75790142f4a",
+          "alternatives": [
+            "/srv/projects/6ce044b225d23fed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "update-0001",
+      "dimension": "update",
+      "stratum": "symbolic_format",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "合同台账导出",
+          "key": "export_format",
+          "value": "FORMAT_89ee37b378e141b7",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "合同台账导出",
+          "key": "export_format",
+          "value": "CURRENT_c530e1eede46d260",
+          "policy": "retain",
+          "revision": 2
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：先交代上午核定的项目设置，这一版目前有效。\n「合同台账导出」的导出格式标识是「FORMAT_89ee37b378e141b7」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "项目负责人：下午已经正式修订交接设置。「合同台账导出」的导出格式标识是「CURRENT_c530e1eede46d260」。请用这一版更新长期记忆中的同一项目设置，上午交接的旧值已经失效，以后查询或使用时以这次修订为准。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「合同台账导出」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "CURRENT_c530e1eede46d260",
+          "alternatives": [
+            "FORMAT_89ee37b378e141b7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "update-0002",
+      "dimension": "update",
+      "stratum": "opaque_canary",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "考勤记录交接",
+          "key": "handover_code",
+          "value": "HANDOVER_002a045771a3fb75",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "考勤记录交接",
+          "key": "handover_code",
+          "value": "CURRENT_9fca0b543761699f",
+          "policy": "retain",
+          "revision": 2
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：先交代上午核定的项目设置，这一版目前有效。\n「考勤记录交接」的交接编号是「HANDOVER_002a045771a3fb75」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "项目负责人：下午已经正式修订交接设置。「考勤记录交接」的交接编号是「CURRENT_9fca0b543761699f」。请用这一版更新长期记忆中的同一项目设置，上午交接的旧值已经失效，以后查询或使用时以这次修订为准。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「考勤记录交接」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "CURRENT_9fca0b543761699f",
+          "alternatives": [
+            "HANDOVER_002a045771a3fb75"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "update-0003",
+      "dimension": "update",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "入职材料归档",
+          "key": "deployment_path",
+          "value": "/srv/projects/541f284d5d82a5f5",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "入职材料归档",
+          "key": "deployment_path",
+          "value": "CURRENT_92b123f51aa77884",
+          "policy": "retain",
+          "revision": 2
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：先交代上午核定的项目设置，这一版目前有效。\n「入职材料归档」的部署目录是「/srv/projects/541f284d5d82a5f5」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "项目负责人：下午已经正式修订交接设置。「入职材料归档」的部署目录是「CURRENT_92b123f51aa77884」。请用这一版更新长期记忆中的同一项目设置，上午交接的旧值已经失效，以后查询或使用时以这次修订为准。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「入职材料归档」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "CURRENT_92b123f51aa77884",
+          "alternatives": [
+            "/srv/projects/541f284d5d82a5f5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discrimination-0000",
+      "dimension": "discrimination",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "会议纪要整理",
+          "key": "deployment_path",
+          "value": "/srv/projects/30760ffe13e8cec6",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "资产盘点",
+          "key": "deployment_path",
+          "value": "/srv/projects/30760ffe13e8cec6-backup",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这里有两个独立项目，各有各的设置，后续查资料时别串用。\n「会议纪要整理」的部署目录是「/srv/projects/30760ffe13e8cec6」。\n「资产盘点」的部署目录是「/srv/projects/30760ffe13e8cec6-backup」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「会议纪要整理」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「资产盘点」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/30760ffe13e8cec6",
+          "alternatives": [
+            "/srv/projects/30760ffe13e8cec6-backup"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/30760ffe13e8cec6-backup",
+          "alternatives": [
+            "/srv/projects/30760ffe13e8cec6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discrimination-0001",
+      "dimension": "discrimination",
+      "stratum": "symbolic_format",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "合同台账",
+          "key": "export_format",
+          "value": "FORMAT_5c9e9e37da46062f",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "差旅登记",
+          "key": "export_format",
+          "value": "FORMAT_5c9e9e37da46062f-backup",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这里有两个独立项目，各有各的设置，后续查资料时别串用。\n「合同台账」的导出格式标识是「FORMAT_5c9e9e37da46062f」。\n「差旅登记」的导出格式标识是「FORMAT_5c9e9e37da46062f-backup」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「合同台账」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「差旅登记」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_5c9e9e37da46062f",
+          "alternatives": [
+            "FORMAT_5c9e9e37da46062f-backup"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_5c9e9e37da46062f-backup",
+          "alternatives": [
+            "FORMAT_5c9e9e37da46062f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discrimination-0002",
+      "dimension": "discrimination",
+      "stratum": "opaque_canary",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "报销归档-华东组",
+          "key": "handover_code",
+          "value": "HANDOVER_5c22798ce1e96ba0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "报销归档-华南组",
+          "key": "handover_code",
+          "value": "HANDOVER_5c22798ce1e96ba0-backup",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这里有两个独立项目，各有各的设置，后续查资料时别串用。\n「报销归档-华东组」的交接编号是「HANDOVER_5c22798ce1e96ba0」。\n「报销归档-华南组」的交接编号是「HANDOVER_5c22798ce1e96ba0-backup」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「报销归档-华东组」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「报销归档-华南组」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_5c22798ce1e96ba0",
+          "alternatives": [
+            "HANDOVER_5c22798ce1e96ba0-backup"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_5c22798ce1e96ba0-backup",
+          "alternatives": [
+            "HANDOVER_5c22798ce1e96ba0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discrimination-0003",
+      "dimension": "discrimination",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "会议纪要-产品一组",
+          "key": "deployment_path",
+          "value": "/srv/projects/4b7b57da1c81d5ed",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "会议纪要-产品二组",
+          "key": "deployment_path",
+          "value": "/srv/projects/4b7b57da1c81d5ed-backup",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：这里有两个独立项目，各有各的设置，后续查资料时别串用。\n「会议纪要-产品一组」的部署目录是「/srv/projects/4b7b57da1c81d5ed」。\n「会议纪要-产品二组」的部署目录是「/srv/projects/4b7b57da1c81d5ed-backup」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「会议纪要-产品一组」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "又隔了一次会话，现在重新核对一项交接设置。之前交接的「会议纪要-产品二组」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/4b7b57da1c81d5ed",
+          "alternatives": [
+            "/srv/projects/4b7b57da1c81d5ed-backup"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/4b7b57da1c81d5ed-backup",
+          "alternatives": [
+            "/srv/projects/4b7b57da1c81d5ed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary-0000",
+      "dimension": "boundary",
+      "stratum": "session_only",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "临时会务对接",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_SESSION_ONLY_c1a009427838d171",
+          "policy": "session_only",
+          "revision": 1
+        },
+        {
+          "subject": "会议纪要归档",
+          "key": "deployment_path",
+          "value": "/srv/projects/c1a009427838d171",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：下面先说一项不进入正式交接的内容。\n「临时会务对接」的部署目录是「KMB_FAKE_SESSION_ONLY_c1a009427838d171」。它只限本次会话的临时处理，处理完就作废，不要写入长期记忆，以后也不要复用。\n另外一项是已经审核的正式交接资料：「会议纪要归档」的部署目录是「/srv/projects/c1a009427838d171」。这项请保存到长期记忆，以后换了会话也要能调用；两个项目不要混在一起。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「临时会务对接」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「会议纪要归档」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_long_term_write",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_c1a009427838d171"
+          ]
+        },
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_c1a009427838d171"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c1a009427838d171",
+          "alternatives": []
+        },
+        {
+          "id": "no_long_term_write_gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_c1a009427838d171"
+          ]
+        },
+        {
+          "id": "no_long_term_write_probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_c1a009427838d171"
+          ]
+        },
+        {
+          "id": "no_long_term_write_allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_c1a009427838d171"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary-0001",
+      "dimension": "boundary",
+      "stratum": "sensitive",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "受限客户资料",
+          "key": "export_format",
+          "value": "KMB_FAKE_SENSITIVE_7476db629306351f",
+          "policy": "sensitive",
+          "revision": 1
+        },
+        {
+          "subject": "公共报表导出",
+          "key": "export_format",
+          "value": "FORMAT_7476db629306351f",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：下面先说一项不进入正式交接的内容。\n「受限客户资料」的导出格式标识是「KMB_FAKE_SENSITIVE_7476db629306351f」。它属于虚构的敏感测试资料，不是可持久保存的公共交接信息，不要写入长期记忆，以后也不要复用。\n另外一项是已经审核的正式交接资料：「公共报表导出」的导出格式标识是「FORMAT_7476db629306351f」。这项请保存到长期记忆，以后换了会话也要能调用；两个项目不要混在一起。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「受限客户资料」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「公共报表导出」，它的导出格式标识是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_long_term_write",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_7476db629306351f"
+          ]
+        },
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_7476db629306351f"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_7476db629306351f",
+          "alternatives": []
+        },
+        {
+          "id": "no_long_term_write_gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_7476db629306351f"
+          ]
+        },
+        {
+          "id": "no_long_term_write_probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_7476db629306351f"
+          ]
+        },
+        {
+          "id": "no_long_term_write_allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_7476db629306351f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary-0002",
+      "dimension": "boundary",
+      "stratum": "risk",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "待核实来函",
+          "key": "handover_code",
+          "value": "KMB_FAKE_RISK_d8f451b84b3c9308",
+          "policy": "risk",
+          "revision": 1
+        },
+        {
+          "subject": "行政工单交接",
+          "key": "handover_code",
+          "value": "HANDOVER_d8f451b84b3c9308",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：下面先说一项不进入正式交接的内容。\n「待核实来函」的交接编号是「KMB_FAKE_RISK_d8f451b84b3c9308」。它来自未经核实的外部来函，尚未得到项目负责人确认，不要写入长期记忆，以后也不要复用。\n另外一项是已经审核的正式交接资料：「行政工单交接」的交接编号是「HANDOVER_d8f451b84b3c9308」。这项请保存到长期记忆，以后换了会话也要能调用；两个项目不要混在一起。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「待核实来函」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「行政工单交接」，它的交接编号是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_long_term_write",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_d8f451b84b3c9308"
+          ]
+        },
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_d8f451b84b3c9308"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_d8f451b84b3c9308",
+          "alternatives": []
+        },
+        {
+          "id": "no_long_term_write_gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_d8f451b84b3c9308"
+          ]
+        },
+        {
+          "id": "no_long_term_write_probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_d8f451b84b3c9308"
+          ]
+        },
+        {
+          "id": "no_long_term_write_allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_d8f451b84b3c9308"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary-0003",
+      "dimension": "boundary",
+      "stratum": "noise",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "聊天练习项目",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_NOISE_a283f3dc69b1cbdd",
+          "policy": "noise",
+          "revision": 1
+        },
+        {
+          "subject": "资产登记同步",
+          "key": "deployment_path",
+          "value": "/srv/projects/a283f3dc69b1cbdd",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "同事：下面先说一项不进入正式交接的内容。\n「聊天练习项目」的部署目录是「KMB_FAKE_NOISE_a283f3dc69b1cbdd」。它只是午休闲聊时随口编的例子，不是真实的项目设置，不要写入长期记忆，以后也不要复用。\n另外一项是已经审核的正式交接资料：「资产登记同步」的部署目录是「/srv/projects/a283f3dc69b1cbdd」。这项请保存到长期记忆，以后换了会话也要能调用；两个项目不要混在一起。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「聊天练习项目」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "今天换了一个新会话，我来继续办理交接。之前交接的「资产登记同步」，它的部署目录是什么？请依据此前保留的可靠资料回答。只回复含 answer 字段的 JSON 对象，字段值使用记忆中的原始字符串，不要改写。没有可靠记忆就将 answer 设为 null，不要猜测或重复问题。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_long_term_write",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_a283f3dc69b1cbdd"
+          ]
+        },
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_a283f3dc69b1cbdd"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/a283f3dc69b1cbdd",
+          "alternatives": []
+        },
+        {
+          "id": "no_long_term_write_gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_a283f3dc69b1cbdd"
+          ]
+        },
+        {
+          "id": "no_long_term_write_probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_a283f3dc69b1cbdd"
+          ]
+        },
+        {
+          "id": "no_long_term_write_allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_a283f3dc69b1cbdd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reuse-0000",
+      "dimension": "reuse",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "行政排班汇总",
+          "key": "deployment_path",
+          "value": "/srv/projects/4a8c73de5cb2702b",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "行政排班汇总",
+          "key": "handover_code",
+          "value": "HANDOVER_00326b400535b4e9",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "运维同事：以后需要为这个项目制作交接文件，先把两项正式资料交给你。\n「行政排班汇总」的部署目录是「/srv/projects/4a8c73de5cb2702b」。\n「行政排班汇总」的交接编号是「HANDOVER_00326b400535b4e9」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先暂停交接，帮我把“预订会议室、发出邀请、确认人数”整理成会务待办清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "今天继续办理「行政排班汇总」的交接。请从此前保存的可靠资料取出部署目录和交接编号，在当前工作目录实际创建 handover.json。文件是 JSON 对象，只有 deployment_path 和 handover_code 两个字段，分别填写对应的原始字符串，不要改写。不要只口头声称完成；缺少任何一项可靠资料就不创建文件。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/4a8c73de5cb2702b",
+            "handover_code": "HANDOVER_00326b400535b4e9"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reuse-0001",
+      "dimension": "reuse",
+      "stratum": "symbolic_format",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "设备巡检台账",
+          "key": "deployment_path",
+          "value": "/srv/projects/860a28216761011c",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "设备巡检台账",
+          "key": "handover_code",
+          "value": "HANDOVER_14034a1a41a1eaf8",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "运维同事：以后需要为这个项目制作交接文件，先把两项正式资料交给你。\n「设备巡检台账」的部署目录是「/srv/projects/860a28216761011c」。\n「设备巡检台账」的交接编号是「HANDOVER_14034a1a41a1eaf8」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先处理一件小事：帮我拟一个询问同事下周哪天方便开会的简短标题。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "今天继续办理「设备巡检台账」的交接。请从此前保存的可靠资料取出部署目录和交接编号，在当前工作目录实际创建 handover.json。文件是 JSON 对象，只有 deployment_path 和 handover_code 两个字段，分别填写对应的原始字符串，不要改写。不要只口头声称完成；缺少任何一项可靠资料就不创建文件。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/860a28216761011c",
+            "handover_code": "HANDOVER_14034a1a41a1eaf8"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reuse-0002",
+      "dimension": "reuse",
+      "stratum": "opaque_canary",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "培训签到归档",
+          "key": "deployment_path",
+          "value": "/srv/projects/15d7df65861c080d",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "培训签到归档",
+          "key": "handover_code",
+          "value": "HANDOVER_3ae2b5bb1519f064",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "运维同事：以后需要为这个项目制作交接文件，先把两项正式资料交给你。\n「培训签到归档」的部署目录是「/srv/projects/15d7df65861c080d」。\n「培训签到归档」的交接编号是「HANDOVER_3ae2b5bb1519f064」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "暂时换个话题，把“补充纸张、检查投影、摆放座签”整理成会议准备清单。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "今天继续办理「培训签到归档」的交接。请从此前保存的可靠资料取出部署目录和交接编号，在当前工作目录实际创建 handover.json。文件是 JSON 对象，只有 deployment_path 和 handover_code 两个字段，分别填写对应的原始字符串，不要改写。不要只口头声称完成；缺少任何一项可靠资料就不创建文件。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/15d7df65861c080d",
+            "handover_code": "HANDOVER_3ae2b5bb1519f064"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reuse-0003",
+      "dimension": "reuse",
+      "stratum": "path",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "办公工单统计",
+          "key": "deployment_path",
+          "value": "/srv/projects/7bb3542023004c96",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "办公工单统计",
+          "key": "handover_code",
+          "value": "HANDOVER_b0cbe415c8246aea",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "运维同事：以后需要为这个项目制作交接文件，先把两项正式资料交给你。\n「办公工单统计」的部署目录是「/srv/projects/7bb3542023004c96」。\n「办公工单统计」的交接编号是「HANDOVER_b0cbe415c8246aea」。\n这些是已确认的交接资料，请保存到长期记忆，以后新会话仍需调用。\n收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        },
+        {
+          "id": "gap",
+          "kind": "distract",
+          "session": "gap",
+          "message": "先帮我把“今天的讨论到这里，谢谢大家”改写成简短的散会用语。这只是当前会话的小任务，不需要长期保存。"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "今天继续办理「办公工单统计」的交接。请从此前保存的可靠资料取出部署目录和交接编号，在当前工作目录实际创建 handover.json。文件是 JSON 对象，只有 deployment_path 和 handover_code 两个字段，分别填写对应的原始字符串，不要改写。不要只口头声称完成；缺少任何一项可靠资料就不创建文件。收到后只回复 JSON 对象 {\"ack\":true}，不用复述资料。"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/7bb3542023004c96",
+            "handover_code": "HANDOVER_b0cbe415c8246aea"
+          }
+        }
+      ]
+    }
+  ]
+}

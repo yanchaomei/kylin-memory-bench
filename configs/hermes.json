@@ -1,0 +1,10 @@
+{
+  "name": "Hermes",
+  "adapter": "hermes",
+  "executable": "hermes",
+  "credential_home": "~/.hermes",
+  "model": "gpt-5.4",
+  "provider": "openai-codex",
+  "max_turns": 12,
+  "timeout": 120
+}

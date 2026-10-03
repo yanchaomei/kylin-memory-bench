@@ -1,0 +1,10 @@
+{
+  "name": "OtherAgent",
+  "adapter": "json-command",
+  "command": ["python3", "/absolute/path/to/agent_bridge.py", "--profile", "{profile}"],
+  "memory_root": "profile",
+  "memory_patterns": ["memory/*.json", "MEMORY.md"],
+  "memory_databases": [],
+  "env": {"AGENT_STATE_DIR": "{profile}", "AGENT_WORKSPACE": "{workspace}"},
+  "timeout": 120
+}

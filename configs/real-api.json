@@ -1,0 +1,25 @@
+{
+  "agents": [
+    {
+      "name": "OpenClaw-API",
+      "adapter": "openclaw",
+      "model": "gpt-6-sol",
+      "base_url": "https://api.adslab.icu/v1",
+      "api_mode": "responses",
+      "reasoning_effort": "off",
+      "api_key_env": "CODEX_RELAY_API_KEY",
+      "timeout": 180
+    },
+    {
+      "name": "Hermes-API",
+      "adapter": "hermes",
+      "model": "gpt-6-sol",
+      "base_url": "https://api.adslab.icu/v1",
+      "api_mode": "responses",
+      "reasoning_effort": "off",
+      "api_key_env": "CODEX_RELAY_API_KEY",
+      "max_turns": 12,
+      "timeout": 180
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Hermes",
+  "adapter": "hermes",
+  "executable": "hermes",
+  "credential_home": "~/.hermes",
+  "model": "claude-haiku-4-5-20251001",
+  "provider": "anthropic",
+  "max_turns": 12,
+  "timeout": 120
+}

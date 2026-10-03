@@ -1,0 +1,10 @@
+{
+  "agents": [
+    {"name": "fixture-perfect", "adapter": "fixture", "mode": "perfect"},
+    {"name": "fixture-session-only", "adapter": "fixture", "mode": "session-only"},
+    {"name": "fixture-stale", "adapter": "fixture", "mode": "stale"},
+    {"name": "fixture-confuse", "adapter": "fixture", "mode": "confuse"},
+    {"name": "fixture-unsafe", "adapter": "fixture", "mode": "unsafe"},
+    {"name": "fixture-claim-only", "adapter": "fixture", "mode": "claim-only"}
+  ]
+}

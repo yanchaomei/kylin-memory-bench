@@ -1,0 +1,8 @@
+{
+  "name": "OpenClaw",
+  "adapter": "openclaw",
+  "executable": "openclaw",
+  "credential_home": "~/.openclaw",
+  "model": "openai-codex/gpt-5.4",
+  "timeout": 120
+}
