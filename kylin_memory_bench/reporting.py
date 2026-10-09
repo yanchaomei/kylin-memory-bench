@@ -12,6 +12,7 @@ from xml.etree import ElementTree as ET
 
 from .evidence import build_manifest, write_json
 from .model import DIMENSIONS, DIMENSION_LABELS
+from .paired import summarize_pairs
 
 COLORS = ('#07816d', '#c7503d', '#326da8', '#9565ad', '#8a741d', '#424b57')
 
@@ -58,6 +59,8 @@ def compare_scores(scores: list[dict]) -> dict:
                        'runtime': [s.get('runtime', {}) for s in repeats],
                        'configurations': [s.get('configuration', {}) for s in repeats],
                        'versions': [s.get('agent_version') for s in repeats]})
+        if any('intervention' in c for s in repeats for c in s['cases']):
+            agents[-1]['paired_summary'] = summarize_pairs(repeats)
     return {'schema': 'kmb.comparison/v1', 'dataset_sha256': scores[0]['dataset_sha256'],
             'agent_kind': scores[0]['agent_kind'], 'agents': agents,
             'real_agent_count': len(agents) if scores[0]['agent_kind'] == 'real' else 0,
@@ -102,6 +105,10 @@ def percent(value):
     return f'{100*value:.1f}%' if value is not None else 'N/A'
 
 
+def gain_label(value):
+    return f'{100*value:+.1f} pp' if value is not None else 'N/A'
+
+
 def render_report(scores: list[dict], output: Path) -> dict:
     comparison = compare_scores(scores)
     output.mkdir(parents=True, exist_ok=True)
@@ -116,6 +123,30 @@ def render_report(scores: list[dict], output: Path) -> dict:
                 m = a['dimensions'][d]
                 writer.writerow([a['name'], d, m['success_rate'], m['score'], m['coverage'], a['repeats'], m['stddev'], a['repeat_agreement']])
     escape = html.escape
+    paired_agents = [a for a in comparison['agents'] if 'paired_summary' in a]
+    paired_html = ''
+    if paired_agents:
+        paired_rows = []
+        with (output / 'paired_metrics.csv').open('w', encoding='utf8', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['agent', 'independent_pairs', 'complete_pairs', 'coverage', 'provided_target_rate',
+                             'withheld_target_rate', 'mean_source_gain', 'bootstrap_95', 'withheld_safe_case_rate'])
+            for a in paired_agents:
+                m = a['paired_summary']
+                writer.writerow([a['name'], m['independent_pairs'], m['complete_pairs'], m['complete_pair_coverage'],
+                                 m['provided_target_rate'], m['withheld_target_rate'], m['mean_source_gain'],
+                                 json.dumps(m['bootstrap_95']), m['withheld_safe_case_rate']])
+                interval = ('[' + ', '.join(gain_label(v) for v in m['bootstrap_95']) + ']') if m['bootstrap_95'] else 'N/A'
+                paired_rows.append(f'<tr><td>{escape(a["name"])}</td><td class="num">{m["complete_pairs"]}/{m["independent_pairs"]}</td>'
+                                   f'<td class="num">{percent(m["provided_target_rate"])}</td><td class="num">{percent(m["withheld_target_rate"])}</td>'
+                                   f'<td class="num">{gain_label(m["mean_source_gain"])}</td><td class="num">{interval}</td>'
+                                   f'<td class="num">{percent(m["withheld_safe_case_rate"])}</td></tr>')
+        paired_html = ('<section><h2>配对资料收益</h2><div class="table-wrap"><table><thead><tr><th>智能体</th>'
+                       '<th class="num">完整配对</th><th class="num">提供资料时目标达成</th><th class="num">未提供资料时目标达成</th>'
+                       '<th class="num">目标达成差值</th><th class="num">任务配对 Bootstrap 95%</th><th class="num">无资料安全行为</th>'
+                       '</tr></thead><tbody>' + ''.join(paired_rows) + '</tbody></table></div>'
+                       '<p class="meta">两侧查询相同，只改变相关资料是否提供。未知时正确拒答单独计入安全行为，不计为任务目标达成。'
+                       '重复先在同一任务配对内平均；证据不完整的配对不用于差值估计，并保留覆盖率。这是资料可用性对照，不是关闭框架记忆后端。</p></section>')
     rows = []
     for a in comparison['agents']:
         for d in DIMENSIONS:
@@ -132,7 +163,10 @@ def render_report(scores: list[dict], output: Path) -> dict:
                           + '</code><br>实际：<code>' + escape(json.dumps(r.get('actual'), ensure_ascii=False)) + '</code></p>') if 'actual' in r else ''
                 reasons += (f'<li><strong>{escape(r["id"])}</strong> · {escape(r["outcome"])}<p>{escape(r["reason"])}</p>{values}'
                             f'<code>{escape(", ".join(r["evidence_refs"]))}</code></li>')
-            details.append(f'<details data-status="{escape(case["status"])}"><summary><span>{escape(score["agent"])} / '
+            if 'target_attainment' in case:
+                r = case['target_attainment']
+                reasons += f'<li><strong>任务目标达成</strong><p>{escape(r["reason"])}</p><code>{escape(", ".join(r["evidence_refs"]))}</code></li>'
+            details.append(f'<details data-status="{escape(case["status"])}"><summary><span>{escape(score["agent"])} / {escape(score["run_id"][-8:])} / '
                            f'{escape(case["case_id"])}</span><span class="status {case["status"]}">{case["status"]}</span>'
                            f'</summary><ul>{reasons}</ul></details>')
     platforms = sorted({s['environment'].get('os_release', {}).get('PRETTY_NAME', s['environment'].get('system', 'unknown')) for s in scores})
@@ -146,11 +180,11 @@ section{margin:30px 0}table{border-collapse:collapse;width:100%;background:#fff}
 </style><header><div class="eyebrow">Kylin Memory Bench / {{LABEL}}</div><h1>智能体长期记忆 · 六维评测报告</h1><p class="meta">{{PLATFORMS}}</p></header><main>
 <div class="summary"><div>{{SVG}}</div><div><h2>从记忆写入到实际任务</h2><p>长期保持、记忆调用、动态更新、相近区分、边界识别、任务复用。</p><div class="numbers"><div><strong>{{AGENTS}}</strong><span>智能体配置</span></div><div><strong>{{RUNS}}</strong><span>独立运行</span></div><div><strong>{{CASES}}</strong><span>每轮案例</span></div></div><p class="meta">雷达值：成功案例 / 全部分配案例。覆盖率：证据完整、可评分案例 / 全部案例。每条判定保留原因与证据引用。</p><p class="meta">数据指纹<br><code>{{HASH}}</code></p></div></div>
 <section><h2>多维结果</h2><div class="table-wrap"><table><thead><tr><th>智能体</th><th>维度</th><th class="num">成功率</th><th class="num">覆盖率</th><th class="num">可评分正确率</th><th class="num">运行数</th></tr></thead><tbody>{{ROWS}}</tbody></table></div></section>
-<section><h2>逐例判定 <select aria-label="结果筛选" id="filter"><option value="all">全部</option><option value="pass">通过</option><option value="fail">失败</option><option value="inconclusive">证据不完整</option></select></h2>{{DETAILS}}</section><footer>评分方法：结构化值核对、已声明长期记忆文件检查、实际任务文件核对。程序化合成数据；各重复轮次分别保留，不合并冒充新增独立案例。</footer></main>
+{{PAIRED}}<section><h2>逐例判定 <select aria-label="结果筛选" id="filter"><option value="all">全部</option><option value="pass">通过</option><option value="fail">失败</option><option value="inconclusive">证据不完整</option></select></h2>{{DETAILS}}</section><footer>评分方法：结构化值核对、已声明长期记忆文件检查、实际任务文件核对。程序化合成数据；各重复轮次分别保留，不合并冒充新增独立案例。</footer></main>
 <script>document.getElementById('filter').addEventListener('change',e=>document.querySelectorAll('details').forEach(d=>d.hidden=e.target.value!=='all'&&d.dataset.status!==e.target.value))</script></html>'''
     values = {'LABEL': label, 'PLATFORMS': escape(' · '.join(platforms)), 'SVG': svg,
               'AGENTS': str(len(comparison['agents'])), 'RUNS': str(len(scores)), 'CASES': str(len(scores[0]['cases'])),
-              'HASH': comparison['dataset_sha256'], 'ROWS': ''.join(rows), 'DETAILS': ''.join(details)}
+              'HASH': comparison['dataset_sha256'], 'ROWS': ''.join(rows), 'DETAILS': ''.join(details), 'PAIRED': paired_html}
     for key, value in values.items():
         template = template.replace('{{' + key + '}}', value)
     (output / 'report.html').write_text(template, encoding='utf8')

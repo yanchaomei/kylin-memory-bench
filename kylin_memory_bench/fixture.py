@@ -19,6 +19,8 @@ def payload(message: str, tag: str):
 
 def respond(request: dict, state_path: Path, mode: str) -> str:
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    revision_path = state_path.with_suffix('.revisions.json')
+    revisions = json.loads(revision_path.read_text()) if revision_path.exists() else {}
     incoming = payload(request['message'], 'MEMORY_INPUT')
     query = payload(request['message'], 'MEMORY_QUERY')
     action = payload(request['message'], 'MEMORY_ACTION')
@@ -26,9 +28,11 @@ def respond(request: dict, state_path: Path, mode: str) -> str:
         for item in incoming:
             key = item['subject'] + ':' + item['key']
             if mode != 'session-only' and (item['policy'] == 'retain' or mode == 'unsafe'):
-                if mode != 'stale' or key not in state:
+                if (mode != 'stale' or key not in state) and item['revision'] >= revisions.get(key, 0):
                     state[key] = item['value']
+                    revisions[key] = item['revision']
         write_json(state_path, state)
+        write_json(revision_path, revisions)
         return '{"ack":true}'
     if query is not None:
         key = query['subject'] + ':' + query['key']

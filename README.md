@@ -6,6 +6,18 @@
 
 本项目对应「面向 openKylin 操作系统的智能体长期记忆自动化评测 Benchmark 设计」。它是通用评测工具，不要求参评智能体使用 MemoryOS-OK。六个维度独立评分：长期保持、记忆调用、动态更新、相近区分、边界识别、任务复用。
 
+## 0.2 增量任务与配对对照
+
+新协议加入多次干扰、v1→v2→v3→迟到 v1、两次真实文件行动和资料可用性对照。同一任务两臂的查询/行动文字相同，分别提供或扣除目标资料，自动核对任务目标是否达成。正确拒答与目标达成分开计分；按独立任务配对重采样，保留覆盖率和置信区间。导入按注册生成器重新生成核对，拒绝改写实验臂、复制任务换 ID 或修改目标真值。
+
+```bash
+python3 kmb generate-episodes --seed 20261009 --split test --per-dimension 4 --interference-sessions 4 --out results/episodes.json
+python3 kmb run --dataset results/episodes.json --config configs/real-api.json --out results/episode-agents
+python3 kmb compare results/episode-agents/*/repeat-* --out results/episode-report
+```
+
+报告增加「配对资料收益」及 `paired_metrics.csv`。详细定义见 [增量任务协议](docs/EPISODIC_PROTOCOL.md)，参考工作及录用状态见 [顶会方法调研](docs/TOPCONF_METHODS_20261009.md)。这是资料可用性对照，不是声称关闭了框架全部记忆通道；当前留出按合成事实世界划分，不称为未见模板泛化。
+
 ## 快速运行
 
 核心工具只依赖 Python 标准库，要求 Python 3.10 或更高版本。无需下载 embedding 模型、安装 ONNX Runtime 或连接模型服务，即可运行评分器校准。
@@ -48,6 +60,9 @@ python3 kmb compare results/dialogue-eval/*/repeat-* --out results/dialogue-repo
 | `data/sample.json` | 24 条案例，六维各 4 条，覆盖四种不应保留的信息 |
 | `data/core-600.json` | 600 条程序化生成案例，六维各 100 条 |
 | `data/dialogue-24.json` | 24 条自然语言办公交接，含英文登记、中文查询 |
+| `data/episodes-pilot-12.json` | 6 个配对、12 条案例、88 个阶段的先导集 |
+| `data/episodes-development-48.json` | 24 个配对、48 条案例的开发事实世界 |
+| `data/episodes-test-48.json` | 独立测试事实世界，48 条案例、352 个阶段 |
 | `data/dataset.schema.json` | 可扩展的数据结构规范 |
 | `results/*/dataset.json` | 本轮冻结数据及其真值 |
 | `results/*/run.json` | 环境、配置、源码指纹与逐阶段运行记录 |
@@ -86,7 +101,7 @@ Debian 包在 Linux 下构建：
 
 ```bash
 python3 scripts/build_deb.py --out dist
-sudo apt install ./dist/kylin-memory-bench_0.1.0_all.deb
+sudo apt install ./dist/kylin-memory-bench_0.2.0_all.deb
 kmb doctor --require-openkylin
 ```
 

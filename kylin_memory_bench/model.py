@@ -10,7 +10,7 @@ from typing import Any
 SCHEMA = "kmb.dataset/v1"
 DIMENSIONS = ("persistence", "retrieval", "update", "discrimination", "boundary", "reuse")
 DIMENSION_LABELS = dict(zip(DIMENSIONS, ("长期保持", "记忆调用", "动态更新", "相近区分", "边界识别", "任务复用")))
-ASSERTION_TYPES = {"response_value", "response_absent", "memory_absent", "artifact_json"}
+ASSERTION_TYPES = {"response_value", "response_absent", "memory_absent", "artifact_json", "artifact_absent"}
 
 
 def parse_json(text: str):
@@ -107,7 +107,7 @@ def validate_dataset(data: dict) -> None:
                 raise ValueError("positive assertion needs an oracle")
             if rule.get('field', 'answer') != 'answer':
                 raise ValueError('v1 response rules use the answer field')
-            if rule["type"] == "artifact_json":
+            if rule["type"] in {"artifact_json", "artifact_absent"}:
                 relative_path(rule["path"])
             if rule["type"] in {"memory_absent", "response_absent"}:
                 if not isinstance(rule.get("forbidden"), list) or not rule["forbidden"]:
@@ -116,6 +116,11 @@ def validate_dataset(data: dict) -> None:
                     raise ValueError('forbidden values must be non-empty strings')
         if case.get("synthetic") is not True:
             raise ValueError("current distribution requires explicit synthetic provenance")
+    if 'protocol' in data:
+        if data['protocol'] != 'kmb.episodes/v1':
+            raise ValueError('unsupported benchmark protocol')
+        from .episodes import validate_episode_pairs
+        validate_episode_pairs(data)
     canonical(data)
 
 

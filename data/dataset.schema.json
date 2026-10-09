@@ -9,8 +9,12 @@
     "dataset_id": {"type": "string", "minLength": 1},
     "seed": {"type": "integer"},
     "provenance": {"type": "object"},
+    "protocol": {"const": "kmb.episodes/v1"},
     "cases": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/case"}}
   },
+  "allOf": [
+    {"if": {"required": ["protocol"]}, "then": {"properties": {"cases": {"items": {"required": ["intervention"]}}}}}
+  ],
   "$defs": {
     "fact": {
       "type": "object",
@@ -34,7 +38,7 @@
       "type": "object", "required": ["id", "phase", "type"],
       "properties": {
         "id": {"type": "string", "minLength": 1}, "phase": {"type": "string"},
-        "type": {"enum": ["response_value", "response_absent", "memory_absent", "artifact_json"]},
+        "type": {"enum": ["response_value", "response_absent", "memory_absent", "artifact_json", "artifact_absent"]},
         "field": {"const": "answer"}, "expected": {},
         "alternatives": {"type": "array"},
         "forbidden": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
@@ -42,7 +46,7 @@
       },
       "allOf": [
         {"if": {"properties": {"type": {"enum": ["response_value", "artifact_json"]}}}, "then": {"required": ["expected"]}},
-        {"if": {"properties": {"type": {"const": "artifact_json"}}}, "then": {"required": ["path"]}},
+        {"if": {"properties": {"type": {"enum": ["artifact_json", "artifact_absent"]}}}, "then": {"required": ["path"]}},
         {"if": {"properties": {"type": {"enum": ["response_absent", "memory_absent"]}}}, "then": {"required": ["forbidden"]}}
       ]
     },
@@ -54,7 +58,18 @@
         "stratum": {"type": "string"}, "synthetic": {"const": true},
         "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
         "phases": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/phase"}},
-        "assertions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/assertion"}}
+        "assertions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/assertion"}},
+        "intervention": {
+          "type": "object",
+          "required": ["pair_id", "arm", "split", "interference_sessions", "objective"],
+          "properties": {
+            "pair_id": {"type": "string", "pattern": "^[A-Za-z0-9_.-]{1,100}$"},
+            "arm": {"enum": ["provided", "withheld"]},
+            "split": {"enum": ["development", "test"]},
+            "interference_sessions": {"type": "integer", "minimum": 1, "maximum": 64},
+            "objective": {"allOf": [{"$ref": "#/$defs/assertion"}, {"properties": {"type": {"enum": ["response_value", "artifact_json"]}}}]}
+          }
+        }
       }
     }
   }

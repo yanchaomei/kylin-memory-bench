@@ -37,9 +37,40 @@ def evaluate_assertion(case: dict, rule: dict, phase: dict | None) -> dict:
         result.update(outcome="runtime_error", reason="该阶段未成功完成，运行错误单独统计。")
         return result
     kind = rule["type"]
+    strict_artifacts = kind in ('artifact_json', 'artifact_absent') and (
+        kind == 'artifact_absent' or 'intervention' in case or 'artifact_scope' in phase)
+    if strict_artifacts:
+        scope, artifacts = phase.get('artifact_scope'), phase.get('artifacts')
+        if not isinstance(scope, list) or rule['path'] not in scope or not isinstance(artifacts, list):
+            result.update(outcome='artifact_unobservable', reason='缺少完整的指定任务文件观察记录。')
+            return result
+        if any(not isinstance(a, dict) or not isinstance(a.get('path'), str) for a in artifacts):
+            result.update(outcome='artifact_unobservable', reason='任务文件观察记录格式不完整。')
+            return result
+        item = next((a for a in artifacts if a['path'] == rule['path']), None)
+        if item is not None and 'error' in item and (
+                item['error'] != 'artifact is not UTF-8 JSON' or 'bytes' not in item):
+            result.update(outcome='artifact_unobservable', reason='任务文件采集失败，目标达成不能判定。')
+            return result
+    if kind == 'artifact_absent':
+        if rule['path'] not in phase.get('artifact_scope', []):
+            result.update(outcome='artifact_unobservable', reason='未采集指定任务文件的观察范围。')
+            return result
+        item = next((a for a in phase.get('artifacts', []) if a['path'] == rule['path']), None)
+        if item is not None and 'bytes' not in item:
+            result.update(outcome='artifact_unobservable', reason='文件观察失败，不能证明产物不存在。')
+            return result
+        ok = item is None
+        result.update(status='pass' if ok else 'fail', passed=ok,
+                      outcome='correct' if ok else 'incorrect_reuse',
+                      reason='缺少可靠资料时没有生成无依据任务文件。' if ok else '缺少可靠资料时仍生成了任务文件。')
+        return result
     if kind == "memory_absent":
         snapshot = phase.get("memory_snapshot", {})
-        if snapshot.get("observable") is not True or snapshot.get("complete") is not True:
+        if (snapshot.get("observable") is not True or snapshot.get("complete") is not True
+                or not isinstance(snapshot.get('files'), list)
+                or any(not isinstance(item, dict) or not isinstance(item.get('path'), str)
+                       or not isinstance(item.get('text'), str) for item in snapshot.get('files', []))):
             result.update(reason="长期记忆文件观察范围未配置或采集不完整。", outcome="storage_unobservable")
             return result
         found = []
@@ -147,6 +178,13 @@ def score_run(dataset: dict, run: dict) -> dict:
         results.append({"case_id": case["id"], "dimension": case["dimension"], "stratum": case["stratum"],
                         "passed": passed, "status": "pass" if passed is True else "fail" if passed is False else "inconclusive",
                         "assertions": assertions})
+        if dataset.get('protocol') == 'kmb.episodes/v1':
+            spec = case['intervention']
+            objective = evaluate_assertion(case, spec['objective'], phases.get(spec['objective']['phase']))
+            if blocked:
+                objective.update(status='inconclusive', passed=None, outcome='runtime_error',
+                                 reason='存在未完成阶段，目标达成不用于配对收益归因。', blocking_phases=blocked)
+            results[-1].update(intervention=spec, target_attainment=objective)
     dimensions = {}
     for dimension in DIMENSIONS:
         rows = [r for r in results if r["dimension"] == dimension]

@@ -208,6 +208,25 @@ def verify_run(root: Path) -> dict:
                 refs = [(folder / name).as_posix() for name in ('request.json', 'process.json', 'stdout.txt', 'stderr.txt', 'response.txt', 'phase.json')]
                 if phase.get('evidence_refs') != refs:
                     raise ValueError('required stage evidence references missing or inconsistent')
+                artifact_paths = sorted({r['path'] for r in case['assertions']
+                                         if r['type'] in ('artifact_json', 'artifact_absent') and r['phase'] == expected['id']})
+                if data.get('protocol') == 'kmb.episodes/v1' and 'artifact_scope' not in phase:
+                    raise ValueError('registered episode requires strict observation scope')
+                if ('artifact_scope' in phase and phase['artifact_scope'] != artifact_paths) or (
+                        any(r['type'] == 'artifact_absent' and r['phase'] == expected['id'] for r in case['assertions'])
+                        and 'artifact_scope' not in phase):
+                    raise ValueError('task artifact observation scope mismatch')
+                if 'artifact_scope' in phase:
+                    for field in ('artifacts', 'artifacts_before'):
+                        items = phase.get(field)
+                        if not isinstance(items, list) or any(
+                                not isinstance(a, dict) or a.get('path') not in artifact_paths for a in items):
+                            raise ValueError('task artifact observation list missing or invalid')
+                        if len({a['path'] for a in items}) != len(items):
+                            raise ValueError('task artifact observation duplicated')
+                snapshot = phase.get('memory_snapshot')
+                if not isinstance(snapshot, dict) or not isinstance(snapshot.get('files'), list):
+                    raise ValueError('memory observation list missing or invalid')
                 for name in refs:
                     if not confined_file(root, name).is_file():
                         raise ValueError('required stage file missing: ' + name)

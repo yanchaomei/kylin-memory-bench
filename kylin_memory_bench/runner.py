@@ -112,7 +112,8 @@ def run_benchmark(dataset: dict, config: dict, output: Path, *, python: str = sy
                 request = adapter_request(case, phase, session_id=session_id, workspace=str(adapter.workspace))
                 adapter.prepare_phase()
                 command = adapter.command(request)
-                artifact_paths = [r['path'] for r in case['assertions'] if r['type'] == 'artifact_json' and r['phase'] == phase['id']]
+                artifact_paths = sorted({r['path'] for r in case['assertions']
+                                         if r['type'] in ('artifact_json', 'artifact_absent') and r['phase'] == phase['id']})
                 artifacts_before = collect_artifacts(adapter.workspace, artifact_paths)
                 result = execute(command, env=adapter.env, cwd=adapter.workspace, request=request, timeout=float(config.get('timeout', 180)))
                 result['stdout'] = redact(result['stdout'], adapter.secrets)
@@ -133,6 +134,7 @@ def run_benchmark(dataset: dict, config: dict, output: Path, *, python: str = sy
                 observed['memory_snapshot'] = adapter.memory_snapshot()
                 observed['action_trace'] = adapter.trace(request, observed['native_metadata'])
                 observed['artifacts'] = collect_artifacts(adapter.workspace, artifact_paths)
+                observed['artifact_scope'] = artifact_paths
                 observed['artifacts_before'] = artifacts_before
                 before_index = {item['path']: item for item in artifacts_before}
                 for item in observed['artifacts']:

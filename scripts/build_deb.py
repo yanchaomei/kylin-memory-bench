@@ -5,9 +5,12 @@ import os
 import shutil
 import subprocess
 import tempfile
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from kylin_memory_bench import __version__
 
 
 def main():
@@ -34,12 +37,12 @@ def main():
         (bin_dir / 'kmb').symlink_to('../lib/kylin-memory-bench/kmb')
         control = stage / 'DEBIAN'; control.mkdir()
         (control / 'control').write_text(
-            'Package: kylin-memory-bench\nVersion: 0.1.0\nSection: science\nPriority: optional\n'
+            f'Package: kylin-memory-bench\nVersion: {__version__}\nSection: science\nPriority: optional\n'
             'Architecture: all\nMaintainer: Kylin Memory Bench Contributors\nDepends: python3 (>= 3.10)\n'
             'Description: Evidence-based agent long-term memory benchmark\n'
             ' Six-dimensional dataset, native agent adapters, deterministic scoring\n'
             ' and reproducible HTML/CSV/JSON reports for openKylin.\n')
-        target = args.out / 'kylin-memory-bench_0.1.0_all.deb'
+        target = args.out / f'kylin-memory-bench_{__version__}_all.deb'
         env = dict(os.environ, SOURCE_DATE_EPOCH='1790985600')
         subprocess.run(['dpkg-deb', '--root-owner-group', '--build', str(stage), str(target)], check=True, env=env)
         print(target)

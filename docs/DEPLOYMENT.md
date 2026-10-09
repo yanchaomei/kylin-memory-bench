@@ -43,8 +43,8 @@ python3 kmb compare results/real-eval/*/repeat-* --out results/real-eval-report
 
 ```bash
 python3 scripts/build_deb.py --out dist
-dpkg-deb --info dist/kylin-memory-bench_0.1.0_all.deb
-sudo apt install ./dist/kylin-memory-bench_0.1.0_all.deb
+dpkg-deb --info dist/kylin-memory-bench_0.2.0_all.deb
+sudo apt install ./dist/kylin-memory-bench_0.2.0_all.deb
 kmb doctor --require-openkylin
 ```
 

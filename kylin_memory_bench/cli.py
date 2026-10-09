@@ -10,6 +10,7 @@ from pathlib import Path
 from . import __version__
 from .adapters import validate_config
 from .dataset import generate
+from .episodes import generate_episodes
 from .evidence import environment, verify_manifest, verify_run, write_json
 from .model import digest, parse_json, validate_dataset
 from .reporting import render_report
@@ -29,6 +30,12 @@ def parser():
     gen.add_argument('--seed', type=int, default=42)
     gen.add_argument('--per-dimension', type=int, default=4)
     gen.add_argument('--out', type=Path, required=True)
+    episodes = commands.add_parser('generate-episodes', help='generate matched source-availability memory episodes')
+    episodes.add_argument('--seed', type=int, default=20261009)
+    episodes.add_argument('--split', choices=['development', 'test'], default='test')
+    episodes.add_argument('--per-dimension', type=int, default=4)
+    episodes.add_argument('--interference-sessions', type=int, default=4)
+    episodes.add_argument('--out', type=Path, required=True)
     val = commands.add_parser('validate', help='validate a dataset contract')
     val.add_argument('dataset', type=Path)
     run = commands.add_parser('run', help='run one or multiple native agents with isolated case memory')
@@ -53,8 +60,9 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
-        if args.command == 'generate':
-            data = generate(args.seed, args.per_dimension)
+        if args.command in ('generate', 'generate-episodes'):
+            data = (generate(args.seed, args.per_dimension) if args.command == 'generate' else
+                    generate_episodes(args.seed, args.split, args.per_dimension, args.interference_sessions))
             write_json(args.out, data)
             result = {'dataset': str(args.out), 'sha256': digest(data), 'cases': len(data['cases'])}
         elif args.command == 'validate':
