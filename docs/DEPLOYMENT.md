@@ -37,6 +37,21 @@ python3 kmb compare results/real-eval/*/repeat-* --out results/real-eval-report
 
 目录已存在时运行器拒绝覆盖，用新的输出目录重跑。三轮是三个新案例状态空间，而非对同一份已经填好的记忆重复提问。
 
+## 增量任务与完整轮次研究
+
+`data/episodes-test-48.json` 包含 24 个独立任务配对、48 条案例、352 个阶段。每端三轮时，可以从源码目录并发调度六个完整轮次；单轮内部仍串行执行，不把同一任务的各阶段分配给不同 worker。
+
+```bash
+python3 scripts/run_study.py --dataset data/episodes-test-48.json --config configs/real-api.json --repeat 3 --parallel 6 --out results/full48-study
+python3 scripts/analyze_study.py results/full48-study/*/repeat-* --out results/full48-report
+```
+
+长任务放在独立 tmux 会话中。先确认 `study.json` 的 `finished_runs` 等于 `requested_runs`，`source_unchanged` 与 `scheduler_unchanged` 均为 true，再生成正式对比。控制器成功退出仍可能包含原生 CLI 或模型异常，`stage_errors`、可评分覆盖和实际成功率应一起查看。
+
+相同命令只复用已经完整核验的轮次；半轮、已预留但未完成的轮次或配置变化都会拒绝恢复。需要再次评测时创建新的研究目录，保留原记录。`--parallel` 为 1—8，选择时应考虑外部服务配额；并发产生的阶段时延仅作本配置运行诊断。
+
+分析输出包括六维雷达、逐例证据、资料提供/扣除收益及 `reliability.html/json/csv`。`pass^3` 表示三轮全部成功的案例比例，不是三次中成功一次。定义、冻结版本与凭据交付见 `LINUX_STUDY_20261009.md`。上述脚本随完整源码提供，Debian 基础命令仍用 `kmb run/compare`。
+
 将 `--dataset` 替换为 `data/dialogue-24.json` 可评测自然语言交接。两份数据不混在同一个 `compare` 命令中。登录账号模式的备用配置仍在 `configs/openclaw.json` 与 `configs/hermes.json`，使用前先检查账号本身的模型权限。
 
 ## Debian 包
@@ -49,6 +64,8 @@ kmb doctor --require-openkylin
 ```
 
 程序安装在 `/usr/lib/kylin-memory-bench`，命令在 `/usr/bin/kmb`，配置、样例与文档在 `/usr/share/kylin-memory-bench`。包不执行网络下载或改动 Agent 用户数据。构建要求 `dpkg-deb`；架构为 `all`，Python 最低版本通过包依赖声明。
+
+0.2.0 包已经在 Ubuntu 24.04.1 x86_64 独立解包，核验版本启动、12-case/52-stage 增量校准、证据及配对报告。对应包为 `dist/kylin-memory-bench_0.2.0_all.deb`，验证记录在 `results/deb-v020-linux-verification/receipt.json`。该解包验证不需要更改系统安装状态；openKylin 的实际安装与桌面验收单独记录。
 
 ## 目标系统验收
 

@@ -35,7 +35,7 @@
 
 ```bash
 python3 scripts/run_study.py --dataset data/episodes-test-48.json --config configs/real-api.json --repeat 3 --parallel 6 --out results/full48-study
-python3 kmb compare results/full48-study/*/repeat-* --out results/full48-report
+python3 scripts/analyze_study.py results/full48-study/*/repeat-* --out results/full48-report
 ```
 
 长运行使用项目自己的 tmux session。`events.jsonl` 保留带轮次编号的阶段进度，`study-progress.json` 原子更新已归档轮次，`study.json` 为最终执行汇总。每个轮次仍包含独立的 run、score 和证据 manifest。
@@ -50,6 +50,10 @@ python3 kmb compare results/full48-study/*/repeat-* --out results/full48-report
 
 残留半轮、缺失清单、不同配置/数据/源码不被续接。需要重跑时使用新的研究目录，旧结果仍保留；不能将一次异常之后的文件或回复填回旧轮次。
 
+当前调度器在启动任何 worker 前，以排他创建的 `.trial-claims/<agent>/repeat-NNN.json` 预留所有待运行轮次。票据目录不可写时直接拒绝启动，不把尚未启动的任务记成一个可以被下次覆盖的失败汇总。已经预留票据却没有完整 run 的轮次拒绝续跑；符号链接事件日志在模型调用前被拒绝，实际打开控制文件时也检查文件类型、属主和链接数。
+
+本次六轮研究开始于这些调度器加固之前，继续使用冻结的 `f85f29c48f4a58484f7509cf8227ebf7773dbe021e7b47027fa6c37286ad4380` 快照，私有 Git 对应 `1a40d85`。研究使用新建私有目录，六个 trial 均正常创建，没有恢复或票据失败；不在运行中替换调度器。新调度器回归在单独的验证目录执行。
+
 ## 5. 远程凭据交付
 
 远程任务不接收命令行密钥，不在源码、普通配置文件或日志中保存值。通过 SSH 标准输入把 JSON 凭据包写入私有、当前用户拥有、权限 0600 的 FIFO；调度进程只接受配置声明的环境变量名，限制包大小，读取后移除 FIFO，再将值注入自身子进程环境。
@@ -57,3 +61,15 @@ python3 kmb compare results/full48-study/*/repeat-* --out results/full48-report
 这里的「管道」内容保存在内核缓冲区，不是普通磁盘文件；进程环境仍按操作系统的用户权限模型保护。不能把该方式扩大表述为内核级密钥隔离或对同 UID 恶意进程的防护。
 
 对合成凭据、并行独立运行、已归档轮次不变、拒绝错误配置与半轮、保留阶段异常分别设回归测试。控制器自身的审查与结果记录位于本目录，不替代目标系统验收。
+
+## 6. 连续成功率与系统差异
+
+同一案例分配 n 个独立运行，成功 c 次。`pass^k = C(c,k) / C(n,k)`，再对全部分配案例取平均。它回答「抽取 k 次运行，是否每次都成功」，不是「尝试 k 次至少成功一次」的 pass@k。三轮时 `pass^3` 就是三轮全部成功的案例比例。
+
+重复状态一致率另列。一个系统每次都答错，一致率仍然可以是 100%，因此不能用一致率代替可靠成功率。不可评分不给成功分，同时公开可评分比例，不把基础设施失败解释为记忆能力失败。此定义参照 [tau-bench 的固定版本实现](https://github.com/sierra-research/tau-bench/blob/59a200c6d575d595120f1cb70fea53cef0632f6b/tau_bench/run.py)。
+
+系统比较的独立单位仍是 episode：同一任务的两臂在全部轮次都按策略正确，才记为一次可靠成功。对两款系统按匹配 episode 计算精确双侧 McNemar 检验；另列两端证据都完整的子集与覆盖率。重复数不同不进行这个比较。资料提供/扣除的目标差值继续使用独立配对 Bootstrap，不以系统差异检验替代。
+
+`analyze_study.py` 先验证每份 run，再从原始证据重算，输出原有六维 `report.html`、`comparison.json` 和配对表，同时输出 `reliability.html/json/csv`。只有完整六轮归档后才生成本次正式汇总。
+
+对历史结构化 24-case 三轮资料重算得到：Hermes 的 pass^1/pass^2/pass^3 均为 83.33%，OpenClaw 分别为 81.94%/80.56%/79.17%；重复状态一致率分别为 100% 与 95.83%。这组结果是对原始历史证据的可靠性补充，不是正在运行的 48-case 成绩。原始运行文件保持不变，输出另存 `results/legacy-real-reliability-20261009/`。

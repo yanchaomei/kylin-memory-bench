@@ -60,6 +60,8 @@ kylin-memory-bench/
 |---|---|
 | `configs/real-api.json` | 两款真实框架使用同一 HTTPS Responses 入口、模型别名和显式推理设置；凭据只写环境变量名称 |
 | `scripts/generate_dialogue_challenge.py` | 把确定性的事实和阶段改为办公交接对话，保持核对规则和真值一致 |
+| `scripts/run_study.py` | 冻结数据、配置和源码；并发调度完整独立轮次；以文件锁和不可覆写票据防止选择性续跑；只接收环境或私有 FIFO 凭据 |
+| `scripts/analyze_study.py` | 先核验证据并重算六维，再计算 pass^k、全轮可靠成功和独立 episode 的匹配比较；输出离线可靠性页面与 JSON/CSV |
 | `scripts/install.sh` | 检查 Python 并安装到用户目录，不下载第三方运行库 |
 | `scripts/accept_openkylin.sh` | 系统身份、回归、评分校准、真实 Agent 和报告的目标验收 |
 | `scripts/build_deb.py` | 在 Linux 上构建架构无关的 Debian 包，包含代码、数据、配置、文档和协议 |

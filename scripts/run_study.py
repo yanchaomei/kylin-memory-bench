@@ -24,6 +24,8 @@ from kylin_memory_bench.model import digest, parse_json, validate_dataset
 from kylin_memory_bench.privacy import redact, redact_object
 from kylin_memory_bench.runner import run_benchmark
 
+SCHEDULER_SHA256 = sha256(Path(__file__).read_bytes())
+
 
 def source_fingerprint():
     return digest({p.name: sha256(p.read_bytes()) for p in sorted((ROOT / 'kylin_memory_bench').glob('*.py'))})
@@ -44,10 +46,23 @@ def public_configuration(config):
 def atomic_json(path, obj):
     tmp = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
     try:
-        write_json(tmp, obj)
+        with controller_file(tmp, 'x') as file:
+            file.write(json.dumps(obj, ensure_ascii=False, indent=2, allow_nan=False) + '\n')
         os.replace(tmp, path)
     finally:
         tmp.unlink(missing_ok=True)
+
+
+def controller_file(path, mode):
+    flags = {'r': os.O_RDONLY, 'a': os.O_WRONLY | os.O_APPEND | os.O_CREAT,
+             'a+': os.O_RDWR | os.O_APPEND | os.O_CREAT,
+             'x': os.O_WRONLY | os.O_CREAT | os.O_EXCL}[mode]
+    fd = os.open(path, flags | os.O_NOFOLLOW, 0o600)
+    info = os.fstat(fd)
+    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_nlink != 1:
+        os.close(fd)
+        raise ValueError('controller file must be an owned regular file without links')
+    return os.fdopen(fd, mode, encoding='utf8')
 
 
 def read_credentials(path, expected_names, timeout=60):
@@ -106,19 +121,25 @@ def run_study(data, configs, output, *, repeats=3, parallel=2, python=sys.execut
         raise ValueError('study output must not be a symlink')
     definition = {'dataset_sha256': digest(data), 'configurations': {c['name']: digest(c) for c in configs},
                   'repeats': repeats, 'parallel': parallel, 'source_sha256': source_fingerprint(),
-                  'scheduler_sha256': sha256(Path(__file__).read_bytes()),
+                  'scheduler_sha256': SCHEDULER_SHA256,
                   'policy': 'independent complete trials; no phase splicing or selective retry'}
-    with (output / '.study.lock').open('a') as file:
+    controls = {name: confined_file(output, name) for name in
+                ('.study.lock', 'study-plan.json', 'events.jsonl', 'study-progress.json', 'study.json')}
+    claims = confined_file(output, '.trial-claims')
+    claims.mkdir(mode=0o700, exist_ok=True)
+    with controller_file(controls['.study.lock'], 'a+') as file:
         try:
             fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             raise ValueError('another controller owns this study')
-        plan = output / 'study-plan.json'
+        plan = controls['study-plan.json']
         if plan.exists():
-            if parse_json(plan.read_text()) != definition:
+            with controller_file(plan, 'r') as reader:
+                saved_definition = parse_json(reader.read())
+            if saved_definition != definition:
                 raise ValueError('frozen study definition differs; use a new output directory')
         else:
-            if any(p.name != '.study.lock' for p in output.iterdir()):
+            if any(p.name not in ('.study.lock', '.trial-claims') for p in output.iterdir()):
                 raise ValueError('existing output has no frozen study definition')
             atomic_json(plan, definition)
         jobs = [(config, repeat, confined_file(output, f'{config["name"]}/repeat-{repeat:03d}'))
@@ -137,22 +158,34 @@ def run_study(data, configs, output, *, repeats=3, parallel=2, python=sys.execut
                     raise ValueError('existing trial has different configuration: ' + key)
                 rows[key] = trial_summary(key, run, reused=True)
             else:
+                claim = confined_file(output, '.trial-claims/' + key + '.json')
+                if claim.exists():
+                    raise ValueError('prior trial attempt is incomplete; preserve history and use a new study: ' + key)
                 pending.append((config, repeat, path))
         for config, _, _ in pending:
             if config.get('base_url') and not os.environ.get(config.get('api_key_env', '')):
                 raise ValueError('required API credential environment is unavailable')
+        # Reserve every attempt before launching any worker; reservation failures abort the study.
+        for config, repeat, _ in pending:
+            key = f'{config["name"]}/repeat-{repeat:03d}'
+            claim = confined_file(output, '.trial-claims/' + key + '.json')
+            claim.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            with controller_file(claim, 'x') as ticket:
+                ticket.write(json.dumps({'trial': key, 'definition_sha256': digest(definition),
+                                         'configuration_sha256': definition['configurations'][config['name']]}) + '\n')
         lock = threading.Lock()
         secrets = {os.environ[c['api_key_env']] for c in configs if c.get('api_key_env') and os.environ.get(c['api_key_env'])}
         def event(key, value):
             item = {'trial': key, **value}
             with lock:
-                with (output / 'events.jsonl').open('a', encoding='utf8') as log:
+                with controller_file(confined_file(output, 'events.jsonl'), 'a') as log:
                     log.write(json.dumps(item, ensure_ascii=False) + '\n')
                 if progress:
                     progress(item)
         def worker(config, repeat, path):
             key = f'{config["name"]}/repeat-{repeat:03d}'
-            if source_fingerprint() != definition['source_sha256']:
+            if (source_fingerprint() != definition['source_sha256']
+                    or sha256(Path(__file__).read_bytes()) != SCHEDULER_SHA256):
                 raise ValueError('source changed before trial launch')
             run = run_benchmark(data, config, path, python=python, progress=lambda e: event(key, e))
             if run['source_sha256'] != definition['source_sha256'] or not verify_run(path)['ok']:
@@ -168,14 +201,15 @@ def run_study(data, configs, output, *, repeats=3, parallel=2, python=sys.execut
                 except Exception as exc:
                     row = {'trial': key, 'finished': False, 'error': redact(str(exc), secrets), 'reused': False}
                 rows[key] = row
-                atomic_json(output / 'study-progress.json', {'runs': [rows[k] for k in sorted(rows)]})
+                atomic_json(controls['study-progress.json'], {'runs': [rows[k] for k in sorted(rows)]})
         result = {'schema': 'kmb.study/v1', 'definition': definition,
                   'runs': [rows[k] for k in sorted(rows)],
                   'requested_runs': len(jobs), 'finished_runs': sum(r['finished'] for r in rows.values()),
                   'reused_runs': sum(r['reused'] for r in rows.values()),
                   'stage_errors': sum(r.get('stage_errors', 0) for r in rows.values()),
-                  'source_unchanged': source_fingerprint() == definition['source_sha256']}
-        atomic_json(output / 'study.json', result)
+                  'source_unchanged': source_fingerprint() == definition['source_sha256'],
+                  'scheduler_unchanged': sha256(Path(__file__).read_bytes()) == SCHEDULER_SHA256}
+        atomic_json(controls['study.json'], result)
         build_manifest(output)
         return result
 
@@ -203,7 +237,8 @@ def main():
     result = run_study(data, config.get('agents', [config]), args.out, repeats=args.repeat,
                        parallel=args.parallel, progress=lambda e: print(json.dumps(e), flush=True))
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    return 0 if result['finished_runs'] == result['requested_runs'] and result['source_unchanged'] else 2
+    return 0 if (result['finished_runs'] == result['requested_runs'] and result['source_unchanged']
+                 and result['scheduler_unchanged']) else 2
 
 
 if __name__ == '__main__':

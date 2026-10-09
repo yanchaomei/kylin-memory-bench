@@ -19,6 +19,72 @@ def study_module():
 
 
 class StudyTests(unittest.TestCase):
+    def test_claim_failure_aborts_before_any_trial_launch_or_summary_replacement(self):
+        import os
+        from unittest.mock import patch
+        if os.geteuid() == 0:
+            self.skipTest('permission-denial injection requires an unprivileged user')
+        study = study_module()
+        data = generate(19, 1)
+        config = {'name': 'fixture', 'adapter': 'fixture', 'mode': 'perfect',
+                  'base_url': 'https://example.invalid/v1', 'api_key_env': 'KMB_SYNTHETIC_KEY'}
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            root = Path(tmp) / 'study'
+            with self.assertRaises(ValueError):
+                study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            claims = root / '.trial-claims'
+            claims.chmod(0o500)
+            os.environ['KMB_SYNTHETIC_KEY'] = 'synthetic-only-key'
+            try:
+                with patch.object(study, 'run_benchmark') as run, self.assertRaises(PermissionError):
+                    study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+                run.assert_not_called()
+                self.assertFalse((root / 'study.json').exists())
+                self.assertFalse((root / 'study-progress.json').exists())
+            finally:
+                claims.chmod(0o700)
+
+    def test_event_symlink_is_rejected_before_it_can_modify_an_outside_file(self):
+        import os
+        from unittest.mock import patch
+        study = study_module()
+        data = generate(19, 1)
+        config = {'name': 'fixture', 'adapter': 'fixture', 'mode': 'perfect',
+                  'base_url': 'https://example.invalid/v1', 'api_key_env': 'KMB_SYNTHETIC_KEY'}
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            root = Path(tmp) / 'study'
+            with self.assertRaises(ValueError):
+                study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            outside = Path(tmp) / 'outside.txt'
+            outside.write_text('unchanged\n')
+            (root / 'events.jsonl').symlink_to(outside)
+            os.environ['KMB_SYNTHETIC_KEY'] = 'synthetic-only-key'
+            with self.assertRaises(ValueError):
+                study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            self.assertEqual(outside.read_text(), 'unchanged\n')
+
+    def test_failed_prelaunch_attempt_is_preserved_and_cannot_be_silently_retried(self):
+        import os
+        from unittest.mock import patch
+        if os.geteuid() == 0:
+            self.skipTest('permission-denial injection requires an unprivileged user')
+        study = study_module()
+        data = generate(19, 1)
+        config = {'name': 'fixture', 'adapter': 'fixture', 'mode': 'perfect',
+                  'base_url': 'https://example.invalid/v1', 'api_key_env': 'KMB_SYNTHETIC_KEY'}
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            root = Path(tmp) / 'study'
+            with self.assertRaises(ValueError):
+                study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            (root / 'fixture').mkdir(mode=0o500)
+            os.environ['KMB_SYNTHETIC_KEY'] = 'synthetic-only-key'
+            first = study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            self.assertEqual(first['finished_runs'], 0)
+            before = (root / 'study.json').read_bytes()
+            (root / 'fixture').chmod(0o700)
+            with self.assertRaisesRegex(ValueError, 'attempt'):
+                study.run_study(data, [config], root, repeats=1, parallel=1, python=sys.executable)
+            self.assertEqual(before, (root / 'study.json').read_bytes())
     def test_stage_failures_remain_finished_evidence_and_are_not_selectively_retried(self):
         study = study_module()
         data = generate(19, 1)

@@ -20,6 +20,19 @@ python3 kmb compare results/episode-agents/*/repeat-* --out results/episode-repo
 
 本轮两款真实框架已各完成 88 阶段先导运行，观察到合法记录未调用、相近项目错误关联，以及独立的运行异常；完整配对为每端 5/6。全量 84 项回归、六种对照三轮及 808 阶段工程压力校准均已完成。结果、分母与原始证据见 [0.2 实测报告](docs/RESULTS_V020_20261009.md)。
 
+### Linux 完整重复研究
+
+0.2 工程回归已在 macOS arm64 与 Ubuntu 24.04.1 x86_64 各通过 **96 项测试**。Linux 已完成 Debian 包构建、独立解包校准，以及两款固定版本 CLI 的真实 API 连通性任务。测试集的 48 条案例、24 个独立配对、每端三轮研究已经启动；六轮共 2,112 个分配阶段，最终分数待完整归档后发布。当前先导与历史结果不与这轮未完成研究混算。
+
+从源码目录调度完整独立轮次，并在所有轮次完成后分析：
+
+```bash
+python3 scripts/run_study.py --dataset data/episodes-test-48.json --config configs/real-api.json --repeat 3 --parallel 6 --out results/full48-study
+python3 scripts/analyze_study.py results/full48-study/*/repeat-* --out results/full48-report
+```
+
+新增 `reliability.html` 展示 pass^1/pass^2/pass^3，区别「连续都成功」与「状态一致」；JSON 另含按独立任务配对的系统差异。执行器只复用完整且核验通过的轮次，拒绝拼接半轮或替换失败证据。具体环境、命令与指标解释见 [Linux 研究说明](docs/LINUX_STUDY_20261009.md)。这两个研究脚本随源码分发，基础 `kmb` CLI 仍可直接顺序执行批量评测。
+
 ## 快速运行
 
 核心工具只依赖 Python 标准库，要求 Python 3.10 或更高版本。无需下载 embedding 模型、安装 ONNX Runtime 或连接模型服务，即可运行评分器校准。
@@ -124,6 +137,7 @@ REAL_AGENT_CONFIG=/absolute/path/to/two-agents.json bash scripts/accept_openkyli
 - [适配器协议](docs/ADAPTERS.md)：原生框架与第三方接入。
 - [代码结构](docs/CODE_GUIDE.md)：每个模块的职责、输入和输出。
 - [部署与复现](docs/DEPLOYMENT.md)：环境、安装、批量配置、结果验收。
+- [Linux 重复研究](docs/LINUX_STUDY_20261009.md)：固定框架、轮次并发、安全续跑与连续成功率。
 - [测试报告](docs/TEST_REPORT.md)：本轮实测数据与待完成的目标验证。
 - [录屏脚本](docs/DEMO.md)：3—5 分钟真实桌面演示流程。
 - [交付清单](docs/DELIVERY.md)：逐项对应赛题要求。
