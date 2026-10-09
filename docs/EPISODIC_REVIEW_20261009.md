@@ -308,3 +308,25 @@ for field in ('artifact_scope', 'artifacts', 'artifacts_before'):
 原五项发现可以从当前修复待办中关闭。**F6 属于缺证据的安全成功误判，建议在正式模型运行前补齐；F7 建议一并修复以明确新旧记录分流。** 修复后只需针对这两类新增失败测试和回归，不必重新打开已经通过的配对生成、目标分离或 schema 设计。
 
 注册 episode 目前是闭集、按当前生成器完整重生成的协议，任意子集、扩展元数据或修改自然语言输入均不再是该注册协议的合法导入；需要开放扩展或将来修改生成器时，应定义独立版本/协议和历史验证路径，不能把现有闭集合同比作通用 episode 校验器。正式 API/真实模型运行、目标桌面、性能和跨框架公平性仍未由本次复核验证；本节不替代主代理的数据冻结、全量测试或正式结果验收。
+
+## 8. F6/F7 修复后最终收尾
+
+2026-10-09，**本节覆盖第 7 节的未闭合状态：F1-F7 在本次限定复核范围内均已闭合，没有发现剩余 P1/P2。** 仅检查 F6/F7 相关修复及原七项反例，不扩展到其他机制。
+
+源码集合指纹：`009a6472cd96347aa121669cb19daebb7a59a5be367943525cdc25e102cebb30`；验证前后未变化。`scoring.py=6e485dcd38cf6fe59cc5c5dced40116a8a15c3ee415e1d512b07a0288f57af9f`，`evidence.py=845d16d915c8ec1734a739ce497ea7ca114e6c5d3803fd68069c1eec0c871255`。
+
+| 发现 | 最新版独立复现结果 | 状态 |
+|---|---|---|
+| F1 | 相同来源、改变无关干扰、复制任务换 ID/pair ID 全部被注册协议拒绝。 | 闭合 |
+| F2 | 完整 12-case 运行注入控制臂产物采集失败：安全与主目标均为 `None`，完整配对 5/6、coverage 83.33%，reuse gain 为 `None`。 | 闭合 |
+| F3 | 控制臂缺整个 `artifacts` 列表：安全未知，重建临时 manifest 后 verifier 拒绝。 | 闭合 |
+| F4 | null objective、将主目标切换到 checkpoint 初始产物均被拒绝。 | 闭合 |
+| F5 | 公开 Draft 2020-12 Schema 对 core、dialogue、完整 episode 均验证为 0 错误。 | 闭合 |
+| F6 | provided boundary 的全部存储 `files` 列表删除后，五个存储断言及整例均为 `None`；verifier 返回 `memory observation list missing or invalid`。缺键/null/非列表、缺 path、缺 text 均为不可观察；合法显式空列表仍可通过。 | 闭合 |
+| F7 | 新 episode provided 最终阶段删掉 scope 与两份产物列表后，verifier 返回 `registered episode requires strict observation scope`；旧非 episode core 无 scope 的完整六维校准仍 verify/重评分通过。 | 闭合 |
+
+修复定位：[scoring.py:68](</Users/yanchaomei/Desktop/Working/2026 memory OS/openkylin_挑战杯/benchmarks/kylin-memory-bench/kylin_memory_bench/scoring.py:68>)（存储观察结构要求）、[evidence.py:213](</Users/yanchaomei/Desktop/Working/2026 memory OS/openkylin_挑战杯/benchmarks/kylin-memory-bench/kylin_memory_bench/evidence.py:213>)（按注册协议强制 scope）、[evidence.py:227](</Users/yanchaomei/Desktop/Working/2026 memory OS/openkylin_挑战杯/benchmarks/kylin-memory-bench/kylin_memory_bench/evidence.py:227>)（全记录要求明确存储观察列表）。
+
+本轮只执行三个相关 unittest：`test_missing_memory_file_list_is_unobservable_and_new_protocol_cannot_downgrade`、`test_registered_interventions_reject_same_sources_duplicate_tasks_and_null_goals`、`test_missing_observations_do_not_pass_or_create_a_positive_gain`，**3/3 通过，耗时 8.453 秒**；另独立复现上表反例与旧 core 分流。红灯由主代理此前报告，本轮独立确认修复后的绿结果，不声称重放了红到绿全过程。
+
+本审查提出的七项问题可关闭；后续由主代理确认全量回归、数据冻结及正式模型运行。这里没有将限定复核通过当作全量测试、真实模型效果或平台验收已完成。全程离线、使用合成 fixture 与自动清理的临时证据目录，仅追加本报告，未改源码/测试/数据/Git，未访问网络、模型、认证或远程。

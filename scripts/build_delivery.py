@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from kylin_memory_bench.evidence import sha256, verify_manifest, verify_run
+from kylin_memory_bench import __version__
 
 
 def main():
@@ -24,7 +25,7 @@ def main():
                 entries['source/' + path.relative_to(ROOT).as_posix()] = path
     for name in ('kmb', 'README.md', 'LICENSE', 'pyproject.toml', '.gitignore'):
         entries['source/' + name] = ROOT / name
-    for path in (ROOT / 'dist').glob('*.deb'):
+    for path in (ROOT / 'dist').glob(f'kylin-memory-bench_{__version__}_*.deb'):
         entries['packages/' + path.name] = path
     for root in args.runs:
         check = verify_run(root)

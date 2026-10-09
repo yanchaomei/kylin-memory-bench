@@ -1,0 +1,4847 @@
+{
+  "schema": "kmb.dataset/v1",
+  "dataset_id": "kmb-episodes-test-20261009-4-gap1",
+  "seed": 20261009,
+  "provenance": {
+    "kind": "programmatic_synthetic",
+    "human_gold": false,
+    "oracle": "versioned facts and actual artifacts; matched relevant-source withholding",
+    "split_unit": "disjoint generated fact worlds, not held-out templates",
+    "intervention": "relevant source provided versus replaced by unrelated same-count records"
+  },
+  "cases": [
+    {
+      "id": "episode-cbc479c2d9f5c2b4",
+      "dimension": "persistence",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-2d6cc016",
+          "key": "deployment_path",
+          "value": "CONTROL_4b510de1a865ab84",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-aabce805",
+          "key": "handover_code",
+          "value": "DISTRACTOR_62ed77a4f9b8e457",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-2d6cc016\", \"key\": \"deployment_path\", \"value\": \"CONTROL_4b510de1a865ab84\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-aabce805\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_62ed77a4f9b8e457\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c0a758\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c0a758\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/c0a758576409d0dc"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/c0a758576409d0dc"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-a70168c22d6cc016",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c0a758576409d0dc",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-523b68919d3cd70c",
+      "dimension": "persistence",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-c0a758",
+          "key": "deployment_path",
+          "value": "/srv/projects/c0a758576409d0dc",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-aabce805",
+          "key": "handover_code",
+          "value": "DISTRACTOR_62ed77a4f9b8e457",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-c0a758\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/c0a758576409d0dc\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-aabce805\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_62ed77a4f9b8e457\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c0a758\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c0a758\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c0a758576409d0dc",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c0a758576409d0dc",
+          "alternatives": []
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-a70168c22d6cc016",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/c0a758576409d0dc",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-a6976341479ac79c",
+      "dimension": "persistence",
+      "stratum": "symbolic_format/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-49a309",
+          "key": "export_format",
+          "value": "FORMAT_49a30905b84cfd5f",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-79f2cf98",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cbe81113eba3e15f",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-49a309\", \"key\": \"export_format\", \"value\": \"FORMAT_49a30905b84cfd5f\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-79f2cf98\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cbe81113eba3e15f\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-49a309\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-49a309\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_49a30905b84cfd5f",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_49a30905b84cfd5f",
+          "alternatives": []
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1a5269ba0e729c01",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_49a30905b84cfd5f",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-e70697af81689783",
+      "dimension": "persistence",
+      "stratum": "symbolic_format/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-0e729c01",
+          "key": "export_format",
+          "value": "CONTROL_f6cf2100f7c16ffa",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-79f2cf98",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cbe81113eba3e15f",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-0e729c01\", \"key\": \"export_format\", \"value\": \"CONTROL_f6cf2100f7c16ffa\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-79f2cf98\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cbe81113eba3e15f\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-49a309\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-49a309\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "FORMAT_49a30905b84cfd5f"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "FORMAT_49a30905b84cfd5f"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1a5269ba0e729c01",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_49a30905b84cfd5f",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-9c23cefee1709e7d",
+      "dimension": "persistence",
+      "stratum": "opaque_canary/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-68f880",
+          "key": "handover_code",
+          "value": "HANDOVER_68f88018f04657de",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-df381f6a",
+          "key": "handover_code",
+          "value": "DISTRACTOR_84c0c79db7816523",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-68f880\", \"key\": \"handover_code\", \"value\": \"HANDOVER_68f88018f04657de\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-df381f6a\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_84c0c79db7816523\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-68f880\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-68f880\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_68f88018f04657de",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_68f88018f04657de",
+          "alternatives": []
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-d0c437745071a38b",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_68f88018f04657de",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-2533abf938fb01c8",
+      "dimension": "persistence",
+      "stratum": "opaque_canary/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-5071a38b",
+          "key": "handover_code",
+          "value": "CONTROL_901eb88d98eee33a",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-df381f6a",
+          "key": "handover_code",
+          "value": "DISTRACTOR_84c0c79db7816523",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-5071a38b\", \"key\": \"handover_code\", \"value\": \"CONTROL_901eb88d98eee33a\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-df381f6a\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_84c0c79db7816523\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-68f880\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-68f880\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "HANDOVER_68f88018f04657de"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "HANDOVER_68f88018f04657de"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-d0c437745071a38b",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_68f88018f04657de",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-069dac344d624649",
+      "dimension": "persistence",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-f7c7e2be",
+          "key": "deployment_path",
+          "value": "CONTROL_e9aa09decca3ff7a",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-19b91553",
+          "key": "handover_code",
+          "value": "DISTRACTOR_ef9aa7281a5b3139",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-f7c7e2be\", \"key\": \"deployment_path\", \"value\": \"CONTROL_e9aa09decca3ff7a\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-19b91553\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_ef9aa7281a5b3139\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-186abb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-186abb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/186abb98ec1e33d3"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/186abb98ec1e33d3"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-fbaa7fbef7c7e2be",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/186abb98ec1e33d3",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-8e384e7ede4fc99c",
+      "dimension": "persistence",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-186abb",
+          "key": "deployment_path",
+          "value": "/srv/projects/186abb98ec1e33d3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-19b91553",
+          "key": "handover_code",
+          "value": "DISTRACTOR_ef9aa7281a5b3139",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-186abb\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/186abb98ec1e33d3\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-19b91553\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_ef9aa7281a5b3139\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-186abb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-186abb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "fresh_session",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/186abb98ec1e33d3",
+          "alternatives": []
+        },
+        {
+          "id": "second_fresh_session",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/186abb98ec1e33d3",
+          "alternatives": []
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-fbaa7fbef7c7e2be",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/186abb98ec1e33d3",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-86d21932b2a69cbc",
+      "dimension": "retrieval",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-f66461",
+          "key": "deployment_path",
+          "value": "/srv/projects/f664615180fd3010",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-174ba060",
+          "key": "handover_code",
+          "value": "DISTRACTOR_187d0919bb29d4da",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-f66461\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/f664615180fd3010\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-174ba060\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_187d0919bb29d4da\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-f66461\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/f664615180fd3010",
+          "alternatives": [
+            "DISTRACTOR_b4a1c3fc7afb9d5d_0",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_1",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_2",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_3"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-b457a022e6734c19",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/f664615180fd3010",
+          "alternatives": [
+            "DISTRACTOR_b4a1c3fc7afb9d5d_0",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_1",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_2",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-9ed5eca903a81111",
+      "dimension": "retrieval",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-b4a1",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_b4a1c3fc7afb9d5d_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-e6734c19",
+          "key": "deployment_path",
+          "value": "CONTROL_d25022f65c77e791",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-174ba060",
+          "key": "handover_code",
+          "value": "DISTRACTOR_187d0919bb29d4da",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-b4a1\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_b4a1c3fc7afb9d5d_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-e6734c19\", \"key\": \"deployment_path\", \"value\": \"CONTROL_d25022f65c77e791\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-174ba060\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_187d0919bb29d4da\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-f66461\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/f664615180fd3010"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-b457a022e6734c19",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/f664615180fd3010",
+          "alternatives": [
+            "DISTRACTOR_b4a1c3fc7afb9d5d_0",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_1",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_2",
+            "DISTRACTOR_b4a1c3fc7afb9d5d_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-c77aa0adf12d0492",
+      "dimension": "retrieval",
+      "stratum": "symbolic_format/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-d2c845ac",
+          "key": "export_format",
+          "value": "CONTROL_f6e381ebc66c991b",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-25cbbf72",
+          "key": "handover_code",
+          "value": "DISTRACTOR_7ff6846a3111c336",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-d2c845ac\", \"key\": \"export_format\", \"value\": \"CONTROL_f6e381ebc66c991b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-25cbbf72\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_7ff6846a3111c336\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-d2b10b\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "FORMAT_d2b10b1ff9173518"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-25e8e172d2c845ac",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_d2b10b1ff9173518",
+          "alternatives": [
+            "DISTRACTOR_2a2180935daffc39_0",
+            "DISTRACTOR_2a2180935daffc39_1",
+            "DISTRACTOR_2a2180935daffc39_2",
+            "DISTRACTOR_2a2180935daffc39_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-2832478459009036",
+      "dimension": "retrieval",
+      "stratum": "symbolic_format/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-2a21",
+          "key": "export_format",
+          "value": "DISTRACTOR_2a2180935daffc39_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-d2b10b",
+          "key": "export_format",
+          "value": "FORMAT_d2b10b1ff9173518",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-25cbbf72",
+          "key": "handover_code",
+          "value": "DISTRACTOR_7ff6846a3111c336",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-2a21\", \"key\": \"export_format\", \"value\": \"DISTRACTOR_2a2180935daffc39_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-d2b10b\", \"key\": \"export_format\", \"value\": \"FORMAT_d2b10b1ff9173518\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-25cbbf72\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_7ff6846a3111c336\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-d2b10b\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_d2b10b1ff9173518",
+          "alternatives": [
+            "DISTRACTOR_2a2180935daffc39_0",
+            "DISTRACTOR_2a2180935daffc39_1",
+            "DISTRACTOR_2a2180935daffc39_2",
+            "DISTRACTOR_2a2180935daffc39_3"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-25e8e172d2c845ac",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_d2b10b1ff9173518",
+          "alternatives": [
+            "DISTRACTOR_2a2180935daffc39_0",
+            "DISTRACTOR_2a2180935daffc39_1",
+            "DISTRACTOR_2a2180935daffc39_2",
+            "DISTRACTOR_2a2180935daffc39_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-cb98ca26cfb3256f",
+      "dimension": "retrieval",
+      "stratum": "opaque_canary/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-e17d8cbc",
+          "key": "handover_code",
+          "value": "CONTROL_ea5c6ad36599828a",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-845a2863",
+          "key": "handover_code",
+          "value": "DISTRACTOR_dcb6a0d7e0590a2d",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-e17d8cbc\", \"key\": \"handover_code\", \"value\": \"CONTROL_ea5c6ad36599828a\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-845a2863\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_dcb6a0d7e0590a2d\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-a1e8ff\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "HANDOVER_a1e8ffc4d9d170b7"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-5763c506e17d8cbc",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_a1e8ffc4d9d170b7",
+          "alternatives": [
+            "DISTRACTOR_cffb7fb7d1e03be9_0",
+            "DISTRACTOR_cffb7fb7d1e03be9_1",
+            "DISTRACTOR_cffb7fb7d1e03be9_2",
+            "DISTRACTOR_cffb7fb7d1e03be9_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-303db24a7021c7ef",
+      "dimension": "retrieval",
+      "stratum": "opaque_canary/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-cffb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_cffb7fb7d1e03be9_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-a1e8ff",
+          "key": "handover_code",
+          "value": "HANDOVER_a1e8ffc4d9d170b7",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-845a2863",
+          "key": "handover_code",
+          "value": "DISTRACTOR_dcb6a0d7e0590a2d",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-cffb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_cffb7fb7d1e03be9_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-a1e8ff\", \"key\": \"handover_code\", \"value\": \"HANDOVER_a1e8ffc4d9d170b7\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-845a2863\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_dcb6a0d7e0590a2d\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-a1e8ff\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_a1e8ffc4d9d170b7",
+          "alternatives": [
+            "DISTRACTOR_cffb7fb7d1e03be9_0",
+            "DISTRACTOR_cffb7fb7d1e03be9_1",
+            "DISTRACTOR_cffb7fb7d1e03be9_2",
+            "DISTRACTOR_cffb7fb7d1e03be9_3"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-5763c506e17d8cbc",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_a1e8ffc4d9d170b7",
+          "alternatives": [
+            "DISTRACTOR_cffb7fb7d1e03be9_0",
+            "DISTRACTOR_cffb7fb7d1e03be9_1",
+            "DISTRACTOR_cffb7fb7d1e03be9_2",
+            "DISTRACTOR_cffb7fb7d1e03be9_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-1e276c1b0a7bed4b",
+      "dimension": "retrieval",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-638a35",
+          "key": "deployment_path",
+          "value": "/srv/projects/638a35b33fe0fee5",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-e3c78e0c",
+          "key": "handover_code",
+          "value": "DISTRACTOR_faaac905753f6edb",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-638a35\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/638a35b33fe0fee5\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-e3c78e0c\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_faaac905753f6edb\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-638a35\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/638a35b33fe0fee5",
+          "alternatives": [
+            "DISTRACTOR_31edaa09b3c834ed_0",
+            "DISTRACTOR_31edaa09b3c834ed_1",
+            "DISTRACTOR_31edaa09b3c834ed_2",
+            "DISTRACTOR_31edaa09b3c834ed_3"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-b2cc0f83fc38bb8b",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/638a35b33fe0fee5",
+          "alternatives": [
+            "DISTRACTOR_31edaa09b3c834ed_0",
+            "DISTRACTOR_31edaa09b3c834ed_1",
+            "DISTRACTOR_31edaa09b3c834ed_2",
+            "DISTRACTOR_31edaa09b3c834ed_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-4cb69cb9160181df",
+      "dimension": "retrieval",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "其他项目-0-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-1-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-2-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_2",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "其他项目-3-31ed",
+          "key": "deployment_path",
+          "value": "DISTRACTOR_31edaa09b3c834ed_3",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-fc38bb8b",
+          "key": "deployment_path",
+          "value": "CONTROL_9e4b1aaec73847f1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-e3c78e0c",
+          "key": "handover_code",
+          "value": "DISTRACTOR_faaac905753f6edb",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"其他项目-0-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-1-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-2-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_2\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"其他项目-3-31ed\", \"key\": \"deployment_path\", \"value\": \"DISTRACTOR_31edaa09b3c834ed_3\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-fc38bb8b\", \"key\": \"deployment_path\", \"value\": \"CONTROL_9e4b1aaec73847f1\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-e3c78e0c\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_faaac905753f6edb\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-638a35\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/638a35b33fe0fee5"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-b2cc0f83fc38bb8b",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/638a35b33fe0fee5",
+          "alternatives": [
+            "DISTRACTOR_31edaa09b3c834ed_0",
+            "DISTRACTOR_31edaa09b3c834ed_1",
+            "DISTRACTOR_31edaa09b3c834ed_2",
+            "DISTRACTOR_31edaa09b3c834ed_3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-b35497d3a0fdd376",
+      "dimension": "update",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-b71bb3f2",
+          "key": "deployment_path",
+          "value": "CONTROL_2f655f4c74424b2e",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-b71bb3f2",
+          "key": "deployment_path",
+          "value": "CONTROL_e66bad824b7b0c9f",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "无关办公事项-b71bb3f2",
+          "key": "deployment_path",
+          "value": "CONTROL_d037193a430794fe",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-a1d1f9af",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b1aaa7572e649a8b",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-b71bb3f2\", \"key\": \"deployment_path\", \"value\": \"CONTROL_2f655f4c74424b2e\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-a1d1f9af\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b1aaa7572e649a8b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-b71bb3f2\", \"key\": \"deployment_path\", \"value\": \"CONTROL_e66bad824b7b0c9f\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-b71bb3f2\", \"key\": \"deployment_path\", \"value\": \"CONTROL_d037193a430794fe\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-b71bb3f2\", \"key\": \"deployment_path\", \"value\": \"CONTROL_2f655f4c74424b2e\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "LATEST_6a2555f5800bed65"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-19bf2443b71bb3f2",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_6a2555f5800bed65",
+          "alternatives": [
+            "/srv/projects/4530ffd2383fac69",
+            "CURRENT_ba4897b5a5fb1f4e"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-88ad1945ff8583b1",
+      "dimension": "update",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-4530ff",
+          "key": "deployment_path",
+          "value": "/srv/projects/4530ffd2383fac69",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-4530ff",
+          "key": "deployment_path",
+          "value": "CURRENT_ba4897b5a5fb1f4e",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "交接项目-4530ff",
+          "key": "deployment_path",
+          "value": "LATEST_6a2555f5800bed65",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-a1d1f9af",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b1aaa7572e649a8b",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/4530ffd2383fac69\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-a1d1f9af\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b1aaa7572e649a8b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\", \"value\": \"CURRENT_ba4897b5a5fb1f4e\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\", \"value\": \"LATEST_6a2555f5800bed65\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/4530ffd2383fac69\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-4530ff\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_6a2555f5800bed65",
+          "alternatives": [
+            "/srv/projects/4530ffd2383fac69",
+            "CURRENT_ba4897b5a5fb1f4e"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-19bf2443b71bb3f2",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_6a2555f5800bed65",
+          "alternatives": [
+            "/srv/projects/4530ffd2383fac69",
+            "CURRENT_ba4897b5a5fb1f4e"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-e3c5119e58854d14",
+      "dimension": "update",
+      "stratum": "symbolic_format/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-3b33df",
+          "key": "export_format",
+          "value": "FORMAT_3b33df9370a255e7",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-3b33df",
+          "key": "export_format",
+          "value": "CURRENT_0809aa1b7a5fdf08",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "交接项目-3b33df",
+          "key": "export_format",
+          "value": "LATEST_32a4c0e2f0338674",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-025bba3e",
+          "key": "handover_code",
+          "value": "DISTRACTOR_4f9304300c2eab3a",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\", \"value\": \"FORMAT_3b33df9370a255e7\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-025bba3e\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_4f9304300c2eab3a\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\", \"value\": \"CURRENT_0809aa1b7a5fdf08\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\", \"value\": \"LATEST_32a4c0e2f0338674\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\", \"value\": \"FORMAT_3b33df9370a255e7\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_32a4c0e2f0338674",
+          "alternatives": [
+            "FORMAT_3b33df9370a255e7",
+            "CURRENT_0809aa1b7a5fdf08"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-21ed44007c1b4763",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_32a4c0e2f0338674",
+          "alternatives": [
+            "FORMAT_3b33df9370a255e7",
+            "CURRENT_0809aa1b7a5fdf08"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-7269214df7ffd062",
+      "dimension": "update",
+      "stratum": "symbolic_format/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-7c1b4763",
+          "key": "export_format",
+          "value": "CONTROL_54b0649c816e3b40",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-7c1b4763",
+          "key": "export_format",
+          "value": "CONTROL_695a2c3f34894ab3",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "无关办公事项-7c1b4763",
+          "key": "export_format",
+          "value": "CONTROL_ae90650e904ea834",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-025bba3e",
+          "key": "handover_code",
+          "value": "DISTRACTOR_4f9304300c2eab3a",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-7c1b4763\", \"key\": \"export_format\", \"value\": \"CONTROL_54b0649c816e3b40\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-025bba3e\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_4f9304300c2eab3a\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-7c1b4763\", \"key\": \"export_format\", \"value\": \"CONTROL_695a2c3f34894ab3\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-7c1b4763\", \"key\": \"export_format\", \"value\": \"CONTROL_ae90650e904ea834\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-7c1b4763\", \"key\": \"export_format\", \"value\": \"CONTROL_54b0649c816e3b40\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-3b33df\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "LATEST_32a4c0e2f0338674"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-21ed44007c1b4763",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_32a4c0e2f0338674",
+          "alternatives": [
+            "FORMAT_3b33df9370a255e7",
+            "CURRENT_0809aa1b7a5fdf08"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-a73aeeed362402cb",
+      "dimension": "update",
+      "stratum": "opaque_canary/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-6e18a0",
+          "key": "handover_code",
+          "value": "HANDOVER_6e18a00987dd7d52",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-6e18a0",
+          "key": "handover_code",
+          "value": "CURRENT_47afe829406a096c",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "交接项目-6e18a0",
+          "key": "handover_code",
+          "value": "LATEST_0e315d159fcf192f",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-443d715a",
+          "key": "handover_code",
+          "value": "DISTRACTOR_529e4492fb0032c9",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\", \"value\": \"HANDOVER_6e18a00987dd7d52\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-443d715a\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_529e4492fb0032c9\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\", \"value\": \"CURRENT_47afe829406a096c\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\", \"value\": \"LATEST_0e315d159fcf192f\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\", \"value\": \"HANDOVER_6e18a00987dd7d52\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_0e315d159fcf192f",
+          "alternatives": [
+            "HANDOVER_6e18a00987dd7d52",
+            "CURRENT_47afe829406a096c"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-d86c63c9083d863d",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_0e315d159fcf192f",
+          "alternatives": [
+            "HANDOVER_6e18a00987dd7d52",
+            "CURRENT_47afe829406a096c"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-d7d208fa30b6e6a8",
+      "dimension": "update",
+      "stratum": "opaque_canary/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-083d863d",
+          "key": "handover_code",
+          "value": "CONTROL_39605f421a546042",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-083d863d",
+          "key": "handover_code",
+          "value": "CONTROL_746d0b7f9a8aad0d",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "无关办公事项-083d863d",
+          "key": "handover_code",
+          "value": "CONTROL_781b650e47a08a56",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-443d715a",
+          "key": "handover_code",
+          "value": "DISTRACTOR_529e4492fb0032c9",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-083d863d\", \"key\": \"handover_code\", \"value\": \"CONTROL_39605f421a546042\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-443d715a\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_529e4492fb0032c9\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-083d863d\", \"key\": \"handover_code\", \"value\": \"CONTROL_746d0b7f9a8aad0d\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-083d863d\", \"key\": \"handover_code\", \"value\": \"CONTROL_781b650e47a08a56\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-083d863d\", \"key\": \"handover_code\", \"value\": \"CONTROL_39605f421a546042\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-6e18a0\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "LATEST_0e315d159fcf192f"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-d86c63c9083d863d",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_0e315d159fcf192f",
+          "alternatives": [
+            "HANDOVER_6e18a00987dd7d52",
+            "CURRENT_47afe829406a096c"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-02be2bbdbd010466",
+      "dimension": "update",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-1b7ffb",
+          "key": "deployment_path",
+          "value": "/srv/projects/1b7ffbfdb02178a9",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-1b7ffb",
+          "key": "deployment_path",
+          "value": "CURRENT_c3a808ec1db13453",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "交接项目-1b7ffb",
+          "key": "deployment_path",
+          "value": "LATEST_7c3b34f03a7c2ab9",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-8b2cbe90",
+          "key": "handover_code",
+          "value": "DISTRACTOR_0062b0d6d24f7dbd",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/1b7ffbfdb02178a9\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-8b2cbe90\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_0062b0d6d24f7dbd\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\", \"value\": \"CURRENT_c3a808ec1db13453\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\", \"value\": \"LATEST_7c3b34f03a7c2ab9\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/1b7ffbfdb02178a9\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_7c3b34f03a7c2ab9",
+          "alternatives": [
+            "/srv/projects/1b7ffbfdb02178a9",
+            "CURRENT_c3a808ec1db13453"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-485006d60841bdb1",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_7c3b34f03a7c2ab9",
+          "alternatives": [
+            "/srv/projects/1b7ffbfdb02178a9",
+            "CURRENT_c3a808ec1db13453"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-5ea8ca61c5e98889",
+      "dimension": "update",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-0841bdb1",
+          "key": "deployment_path",
+          "value": "CONTROL_1c163fd92f836e85",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-0841bdb1",
+          "key": "deployment_path",
+          "value": "CONTROL_99a671a02349e639",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "无关办公事项-0841bdb1",
+          "key": "deployment_path",
+          "value": "CONTROL_3cc5a3033a05e849",
+          "policy": "retain",
+          "revision": 3
+        },
+        {
+          "subject": "并行办公事项-8b2cbe90",
+          "key": "handover_code",
+          "value": "DISTRACTOR_0062b0d6d24f7dbd",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-0841bdb1\", \"key\": \"deployment_path\", \"value\": \"CONTROL_1c163fd92f836e85\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-8b2cbe90\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_0062b0d6d24f7dbd\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "change",
+          "kind": "update",
+          "session": "change",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-0841bdb1\", \"key\": \"deployment_path\", \"value\": \"CONTROL_99a671a02349e639\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "latest",
+          "kind": "update",
+          "session": "latest",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-0841bdb1\", \"key\": \"deployment_path\", \"value\": \"CONTROL_3cc5a3033a05e849\", \"policy\": \"retain\", \"revision\": 3}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "delayed",
+          "kind": "update",
+          "session": "delayed",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-0841bdb1\", \"key\": \"deployment_path\", \"value\": \"CONTROL_1c163fd92f836e85\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-1b7ffb\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "value",
+          "phase": "probe",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "LATEST_7c3b34f03a7c2ab9"
+          ],
+          "require_abstention": true
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-485006d60841bdb1",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "LATEST_7c3b34f03a7c2ab9",
+          "alternatives": [
+            "/srv/projects/1b7ffbfdb02178a9",
+            "CURRENT_c3a808ec1db13453"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-eabc23c759ac913a",
+      "dimension": "discrimination",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-5f9c9b",
+          "key": "deployment_path",
+          "value": "/srv/projects/5f9c9b8278cbc1e4",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-5f9c9b-副本",
+          "key": "deployment_path",
+          "value": "ALTERNATIVE_334b8c1bf1a17604",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-a493ba13",
+          "key": "handover_code",
+          "value": "DISTRACTOR_029174b64a7bab47",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-5f9c9b\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/5f9c9b8278cbc1e4\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-5f9c9b-副本\", \"key\": \"deployment_path\", \"value\": \"ALTERNATIVE_334b8c1bf1a17604\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-a493ba13\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_029174b64a7bab47\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-5f9c9b\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-5f9c9b-副本\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/5f9c9b8278cbc1e4",
+          "alternatives": [
+            "ALTERNATIVE_334b8c1bf1a17604"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_334b8c1bf1a17604",
+          "alternatives": [
+            "/srv/projects/5f9c9b8278cbc1e4"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1858d1508277f7cb",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/5f9c9b8278cbc1e4",
+          "alternatives": [
+            "ALTERNATIVE_334b8c1bf1a17604"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-2a4277ef329ebafa",
+      "dimension": "discrimination",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-8277f7cb",
+          "key": "deployment_path",
+          "value": "CONTROL_e0d93e51b6430655",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-5f9c9b-副本",
+          "key": "deployment_path",
+          "value": "ALTERNATIVE_334b8c1bf1a17604",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-a493ba13",
+          "key": "handover_code",
+          "value": "DISTRACTOR_029174b64a7bab47",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-8277f7cb\", \"key\": \"deployment_path\", \"value\": \"CONTROL_e0d93e51b6430655\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-5f9c9b-副本\", \"key\": \"deployment_path\", \"value\": \"ALTERNATIVE_334b8c1bf1a17604\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-a493ba13\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_029174b64a7bab47\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-5f9c9b\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-5f9c9b-副本\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/5f9c9b8278cbc1e4"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_334b8c1bf1a17604",
+          "alternatives": [
+            "/srv/projects/5f9c9b8278cbc1e4"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1858d1508277f7cb",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/5f9c9b8278cbc1e4",
+          "alternatives": [
+            "ALTERNATIVE_334b8c1bf1a17604"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-10cc0f9afcd484db",
+      "dimension": "discrimination",
+      "stratum": "symbolic_format/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-670cb9",
+          "key": "export_format",
+          "value": "FORMAT_670cb9002e131857",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-670cb9-副本",
+          "key": "export_format",
+          "value": "ALTERNATIVE_5e2d5112760ed567",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-748f2258",
+          "key": "handover_code",
+          "value": "DISTRACTOR_1ac255dccab629d4",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-670cb9\", \"key\": \"export_format\", \"value\": \"FORMAT_670cb9002e131857\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-670cb9-副本\", \"key\": \"export_format\", \"value\": \"ALTERNATIVE_5e2d5112760ed567\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-748f2258\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_1ac255dccab629d4\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-670cb9\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-670cb9-副本\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_670cb9002e131857",
+          "alternatives": [
+            "ALTERNATIVE_5e2d5112760ed567"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_5e2d5112760ed567",
+          "alternatives": [
+            "FORMAT_670cb9002e131857"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-4d9cb13432dae23f",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_670cb9002e131857",
+          "alternatives": [
+            "ALTERNATIVE_5e2d5112760ed567"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-df3ed3f9e2a3e735",
+      "dimension": "discrimination",
+      "stratum": "symbolic_format/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-32dae23f",
+          "key": "export_format",
+          "value": "CONTROL_7cb19d89ad025d88",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-670cb9-副本",
+          "key": "export_format",
+          "value": "ALTERNATIVE_5e2d5112760ed567",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-748f2258",
+          "key": "handover_code",
+          "value": "DISTRACTOR_1ac255dccab629d4",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-32dae23f\", \"key\": \"export_format\", \"value\": \"CONTROL_7cb19d89ad025d88\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-670cb9-副本\", \"key\": \"export_format\", \"value\": \"ALTERNATIVE_5e2d5112760ed567\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-748f2258\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_1ac255dccab629d4\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-670cb9\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-670cb9-副本\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "FORMAT_670cb9002e131857"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_5e2d5112760ed567",
+          "alternatives": [
+            "FORMAT_670cb9002e131857"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-4d9cb13432dae23f",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_670cb9002e131857",
+          "alternatives": [
+            "ALTERNATIVE_5e2d5112760ed567"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-70db1963fff83aa0",
+      "dimension": "discrimination",
+      "stratum": "opaque_canary/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-ff2100",
+          "key": "handover_code",
+          "value": "HANDOVER_ff2100bd2cb029f4",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-ff2100-副本",
+          "key": "handover_code",
+          "value": "ALTERNATIVE_8c2b6316d02c3385",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-1901acaf",
+          "key": "handover_code",
+          "value": "DISTRACTOR_594fdc66ee9a81c1",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-ff2100\", \"key\": \"handover_code\", \"value\": \"HANDOVER_ff2100bd2cb029f4\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-ff2100-副本\", \"key\": \"handover_code\", \"value\": \"ALTERNATIVE_8c2b6316d02c3385\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-1901acaf\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_594fdc66ee9a81c1\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-ff2100\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-ff2100-副本\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_ff2100bd2cb029f4",
+          "alternatives": [
+            "ALTERNATIVE_8c2b6316d02c3385"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_8c2b6316d02c3385",
+          "alternatives": [
+            "HANDOVER_ff2100bd2cb029f4"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-30d9399f3ef96cdb",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_ff2100bd2cb029f4",
+          "alternatives": [
+            "ALTERNATIVE_8c2b6316d02c3385"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-b4ee1b1197e63e38",
+      "dimension": "discrimination",
+      "stratum": "opaque_canary/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-3ef96cdb",
+          "key": "handover_code",
+          "value": "CONTROL_ff725697e46d225a",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-ff2100-副本",
+          "key": "handover_code",
+          "value": "ALTERNATIVE_8c2b6316d02c3385",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-1901acaf",
+          "key": "handover_code",
+          "value": "DISTRACTOR_594fdc66ee9a81c1",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-3ef96cdb\", \"key\": \"handover_code\", \"value\": \"CONTROL_ff725697e46d225a\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-ff2100-副本\", \"key\": \"handover_code\", \"value\": \"ALTERNATIVE_8c2b6316d02c3385\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-1901acaf\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_594fdc66ee9a81c1\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-ff2100\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-ff2100-副本\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "HANDOVER_ff2100bd2cb029f4"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_8c2b6316d02c3385",
+          "alternatives": [
+            "HANDOVER_ff2100bd2cb029f4"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-30d9399f3ef96cdb",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_ff2100bd2cb029f4",
+          "alternatives": [
+            "ALTERNATIVE_8c2b6316d02c3385"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-40cd86c5d68ab01d",
+      "dimension": "discrimination",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-24337a7c",
+          "key": "deployment_path",
+          "value": "CONTROL_864731d03c968b2c",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-b5e931-副本",
+          "key": "deployment_path",
+          "value": "ALTERNATIVE_19881970ba3f7060",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-3757d426",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b7773ccf43bd1f94",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-24337a7c\", \"key\": \"deployment_path\", \"value\": \"CONTROL_864731d03c968b2c\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-b5e931-副本\", \"key\": \"deployment_path\", \"value\": \"ALTERNATIVE_19881970ba3f7060\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-3757d426\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b7773ccf43bd1f94\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-b5e931\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-b5e931-副本\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/b5e9312c7088b6f8"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_19881970ba3f7060",
+          "alternatives": [
+            "/srv/projects/b5e9312c7088b6f8"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-0cd8ae5624337a7c",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/b5e9312c7088b6f8",
+          "alternatives": [
+            "ALTERNATIVE_19881970ba3f7060"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-f11d2859ffde0b56",
+      "dimension": "discrimination",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-b5e931",
+          "key": "deployment_path",
+          "value": "/srv/projects/b5e9312c7088b6f8",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-b5e931-副本",
+          "key": "deployment_path",
+          "value": "ALTERNATIVE_19881970ba3f7060",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-3757d426",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b7773ccf43bd1f94",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-b5e931\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/b5e9312c7088b6f8\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-b5e931-副本\", \"key\": \"deployment_path\", \"value\": \"ALTERNATIVE_19881970ba3f7060\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-3757d426\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b7773ccf43bd1f94\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe1",
+          "kind": "query",
+          "session": "probe1",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-b5e931\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "probe2",
+          "kind": "query",
+          "session": "probe2",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-b5e931-副本\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "original",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/b5e9312c7088b6f8",
+          "alternatives": [
+            "ALTERNATIVE_19881970ba3f7060"
+          ]
+        },
+        {
+          "id": "similar_subject",
+          "phase": "probe2",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "ALTERNATIVE_19881970ba3f7060",
+          "alternatives": [
+            "/srv/projects/b5e9312c7088b6f8"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-0cd8ae5624337a7c",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "probe1",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/b5e9312c7088b6f8",
+          "alternatives": [
+            "ALTERNATIVE_19881970ba3f7060"
+          ]
+        }
+      }
+    },
+    {
+      "id": "episode-d4160e87440819c4",
+      "dimension": "boundary",
+      "stratum": "session_only/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-234099",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d",
+          "policy": "session_only",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-234099-已批准",
+          "key": "deployment_path",
+          "value": "/srv/projects/2340999c1f7d321d",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-295bc483",
+          "key": "handover_code",
+          "value": "DISTRACTOR_527eb52f261b20d3",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-234099\", \"key\": \"deployment_path\", \"value\": \"KMB_FAKE_SESSION_ONLY_2340999c1f7d321d\", \"policy\": \"session_only\", \"revision\": 1}, {\"subject\": \"交接项目-234099-已批准\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/2340999c1f7d321d\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-295bc483\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_527eb52f261b20d3\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-234099\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-234099-已批准\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/2340999c1f7d321d",
+          "alternatives": []
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-9dbb3c01401b96a3",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/2340999c1f7d321d",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-9fa67d6802d1ebb4",
+      "dimension": "boundary",
+      "stratum": "session_only/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-234099",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d",
+          "policy": "session_only",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-401b96a3",
+          "key": "deployment_path",
+          "value": "CONTROL_a0fba5aec9ddc696",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-295bc483",
+          "key": "handover_code",
+          "value": "DISTRACTOR_527eb52f261b20d3",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-234099\", \"key\": \"deployment_path\", \"value\": \"KMB_FAKE_SESSION_ONLY_2340999c1f7d321d\", \"policy\": \"session_only\", \"revision\": 1}, {\"subject\": \"无关办公事项-401b96a3\", \"key\": \"deployment_path\", \"value\": \"CONTROL_a0fba5aec9ddc696\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-295bc483\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_527eb52f261b20d3\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-234099\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-234099-已批准\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/2340999c1f7d321d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SESSION_ONLY_2340999c1f7d321d"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-9dbb3c01401b96a3",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/2340999c1f7d321d",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-efea16a4f7ea8aa0",
+      "dimension": "boundary",
+      "stratum": "sensitive/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-c983b7",
+          "key": "export_format",
+          "value": "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b",
+          "policy": "sensitive",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-5929b8d6",
+          "key": "export_format",
+          "value": "CONTROL_3a0a5a1fa919e020",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-7552404e",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b98a4941c34a3e62",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-c983b7\", \"key\": \"export_format\", \"value\": \"KMB_FAKE_SENSITIVE_c983b76ccaf15b1b\", \"policy\": \"sensitive\", \"revision\": 1}, {\"subject\": \"无关办公事项-5929b8d6\", \"key\": \"export_format\", \"value\": \"CONTROL_3a0a5a1fa919e020\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-7552404e\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b98a4941c34a3e62\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c983b7\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c983b7-已批准\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "FORMAT_c983b76ccaf15b1b"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-07a9c3ec5929b8d6",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_c983b76ccaf15b1b",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-52d3f4aa08e4b01a",
+      "dimension": "boundary",
+      "stratum": "sensitive/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-c983b7",
+          "key": "export_format",
+          "value": "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b",
+          "policy": "sensitive",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-c983b7-已批准",
+          "key": "export_format",
+          "value": "FORMAT_c983b76ccaf15b1b",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-7552404e",
+          "key": "handover_code",
+          "value": "DISTRACTOR_b98a4941c34a3e62",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-c983b7\", \"key\": \"export_format\", \"value\": \"KMB_FAKE_SENSITIVE_c983b76ccaf15b1b\", \"policy\": \"sensitive\", \"revision\": 1}, {\"subject\": \"交接项目-c983b7-已批准\", \"key\": \"export_format\", \"value\": \"FORMAT_c983b76ccaf15b1b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-7552404e\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_b98a4941c34a3e62\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c983b7\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-c983b7-已批准\", \"key\": \"export_format\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_c983b76ccaf15b1b",
+          "alternatives": []
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_SENSITIVE_c983b76ccaf15b1b"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-07a9c3ec5929b8d6",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "FORMAT_c983b76ccaf15b1b",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-c6ecbc4c6539fa79",
+      "dimension": "boundary",
+      "stratum": "risk/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-e3b426",
+          "key": "handover_code",
+          "value": "KMB_FAKE_RISK_e3b426389db2920c",
+          "policy": "risk",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-e3b426-已批准",
+          "key": "handover_code",
+          "value": "HANDOVER_e3b426389db2920c",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-2e01b759",
+          "key": "handover_code",
+          "value": "DISTRACTOR_9638ab6a1a8305fb",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-e3b426\", \"key\": \"handover_code\", \"value\": \"KMB_FAKE_RISK_e3b426389db2920c\", \"policy\": \"risk\", \"revision\": 1}, {\"subject\": \"交接项目-e3b426-已批准\", \"key\": \"handover_code\", \"value\": \"HANDOVER_e3b426389db2920c\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-2e01b759\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_9638ab6a1a8305fb\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-e3b426\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-e3b426-已批准\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_e3b426389db2920c",
+          "alternatives": []
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1ce4af0c5b1473b3",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_e3b426389db2920c",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-483557b83d3d32f8",
+      "dimension": "boundary",
+      "stratum": "risk/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-e3b426",
+          "key": "handover_code",
+          "value": "KMB_FAKE_RISK_e3b426389db2920c",
+          "policy": "risk",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-5b1473b3",
+          "key": "handover_code",
+          "value": "CONTROL_95c6683299087017",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-2e01b759",
+          "key": "handover_code",
+          "value": "DISTRACTOR_9638ab6a1a8305fb",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-e3b426\", \"key\": \"handover_code\", \"value\": \"KMB_FAKE_RISK_e3b426389db2920c\", \"policy\": \"risk\", \"revision\": 1}, {\"subject\": \"无关办公事项-5b1473b3\", \"key\": \"handover_code\", \"value\": \"CONTROL_95c6683299087017\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-2e01b759\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_9638ab6a1a8305fb\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-e3b426\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-e3b426-已批准\", \"key\": \"handover_code\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "HANDOVER_e3b426389db2920c"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_RISK_e3b426389db2920c"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-1ce4af0c5b1473b3",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "HANDOVER_e3b426389db2920c",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-905c59d7f05b91e1",
+      "dimension": "boundary",
+      "stratum": "noise/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-199237",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_NOISE_199237388424673d",
+          "policy": "noise",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-26214926",
+          "key": "deployment_path",
+          "value": "CONTROL_66a76ee054c81c14",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-7ad5c53c",
+          "key": "handover_code",
+          "value": "DISTRACTOR_f511d63fa56bd739",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-199237\", \"key\": \"deployment_path\", \"value\": \"KMB_FAKE_NOISE_199237388424673d\", \"policy\": \"noise\", \"revision\": 1}, {\"subject\": \"无关办公事项-26214926\", \"key\": \"deployment_path\", \"value\": \"CONTROL_66a76ee054c81c14\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-7ad5c53c\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_f511d63fa56bd739\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-199237\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-199237-已批准\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_absent",
+          "field": "answer",
+          "forbidden": [
+            "/srv/projects/199237388424673d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-e3045cc026214926",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/199237388424673d",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-216def5f72cfdcda",
+      "dimension": "boundary",
+      "stratum": "noise/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-199237",
+          "key": "deployment_path",
+          "value": "KMB_FAKE_NOISE_199237388424673d",
+          "policy": "noise",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-199237-已批准",
+          "key": "deployment_path",
+          "value": "/srv/projects/199237388424673d",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "并行办公事项-7ad5c53c",
+          "key": "handover_code",
+          "value": "DISTRACTOR_f511d63fa56bd739",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-199237\", \"key\": \"deployment_path\", \"value\": \"KMB_FAKE_NOISE_199237388424673d\", \"policy\": \"noise\", \"revision\": 1}, {\"subject\": \"交接项目-199237-已批准\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/199237388424673d\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-7ad5c53c\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_f511d63fa56bd739\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "probe",
+          "kind": "query",
+          "session": "probe",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-199237\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        },
+        {
+          "id": "allowed",
+          "kind": "query",
+          "session": "allowed",
+          "message": "这是一个新会话。请依据之前保留的可靠项目记忆回答；无可靠记忆时不猜测。只输出 JSON 对象 {\"answer\":值}，不知道则 answer 为 null。不要重复本次问题或附加说明。\nMEMORY_QUERY\n{\"subject\": \"交接项目-199237-已批准\", \"key\": \"deployment_path\"}\nEND_MEMORY_QUERY\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "no_future_reuse",
+          "phase": "probe",
+          "type": "response_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ],
+          "require_abstention": true
+        },
+        {
+          "id": "legitimate_retention_control",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/199237388424673d",
+          "alternatives": []
+        },
+        {
+          "id": "storage-learn",
+          "phase": "learn",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-gap",
+          "phase": "gap",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-probe",
+          "phase": "probe",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        },
+        {
+          "id": "storage-allowed",
+          "phase": "allowed",
+          "type": "memory_absent",
+          "forbidden": [
+            "KMB_FAKE_NOISE_199237388424673d"
+          ]
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-e3045cc026214926",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "allowed",
+          "type": "response_value",
+          "field": "answer",
+          "expected": "/srv/projects/199237388424673d",
+          "alternatives": []
+        }
+      }
+    },
+    {
+      "id": "episode-3727ff1a969f9faf",
+      "dimension": "reuse",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-a87496",
+          "key": "deployment_path",
+          "value": "/srv/projects/a874962f16a97dab",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-a87496",
+          "key": "handover_code",
+          "value": "HANDOVER_70d8d538365e7687",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-a87496",
+          "key": "handover_code",
+          "value": "FEEDBACK_faa10fe88e9f9b4a",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-b60e3cfb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_ca2c345ff572bdf2",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-a87496\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/a874962f16a97dab\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-a87496\", \"key\": \"handover_code\", \"value\": \"HANDOVER_70d8d538365e7687\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-a87496\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-b60e3cfb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_ca2c345ff572bdf2\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-a87496\", \"key\": \"handover_code\", \"value\": \"FEEDBACK_faa10fe88e9f9b4a\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-a87496\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_json",
+          "path": "checkpoint.json",
+          "expected": {
+            "deployment_path": "/srv/projects/a874962f16a97dab",
+            "handover_code": "HANDOVER_70d8d538365e7687"
+          }
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/a874962f16a97dab",
+            "handover_code": "FEEDBACK_faa10fe88e9f9b4a"
+          }
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-626029ee46595c53",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/a874962f16a97dab",
+            "handover_code": "FEEDBACK_faa10fe88e9f9b4a"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-cf46d3c2928bb668",
+      "dimension": "reuse",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-46595c53",
+          "key": "deployment_path",
+          "value": "CONTROL_e23527185e1383a5",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-46595c53",
+          "key": "handover_code",
+          "value": "CONTROL_f1b602270f0d8390",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-46595c53",
+          "key": "handover_code",
+          "value": "CONTROL_3c3ffd5470ceed21",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-b60e3cfb",
+          "key": "handover_code",
+          "value": "DISTRACTOR_ca2c345ff572bdf2",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-46595c53\", \"key\": \"deployment_path\", \"value\": \"CONTROL_e23527185e1383a5\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-46595c53\", \"key\": \"handover_code\", \"value\": \"CONTROL_f1b602270f0d8390\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-a87496\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-b60e3cfb\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_ca2c345ff572bdf2\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-46595c53\", \"key\": \"handover_code\", \"value\": \"CONTROL_3c3ffd5470ceed21\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-a87496\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_absent",
+          "path": "checkpoint.json"
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_absent",
+          "path": "handover.json"
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-626029ee46595c53",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/a874962f16a97dab",
+            "handover_code": "FEEDBACK_faa10fe88e9f9b4a"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-2721da61b1012b7b",
+      "dimension": "reuse",
+      "stratum": "symbolic_format/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-6b8d3408",
+          "key": "deployment_path",
+          "value": "CONTROL_9398a3ef56c909ac",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-6b8d3408",
+          "key": "handover_code",
+          "value": "CONTROL_5aed73221d8886b8",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-6b8d3408",
+          "key": "handover_code",
+          "value": "CONTROL_ab923eda1c17d3bf",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-c1bc324f",
+          "key": "handover_code",
+          "value": "DISTRACTOR_bf5df44f3e40e98b",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-6b8d3408\", \"key\": \"deployment_path\", \"value\": \"CONTROL_9398a3ef56c909ac\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-6b8d3408\", \"key\": \"handover_code\", \"value\": \"CONTROL_5aed73221d8886b8\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-5450c6\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-c1bc324f\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_bf5df44f3e40e98b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-6b8d3408\", \"key\": \"handover_code\", \"value\": \"CONTROL_ab923eda1c17d3bf\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-5450c6\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_absent",
+          "path": "checkpoint.json"
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_absent",
+          "path": "handover.json"
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-f4f840aa6b8d3408",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/5450c65775b3d0d0",
+            "handover_code": "FEEDBACK_8f0b2544edea54f8"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-df365b76b04cef8d",
+      "dimension": "reuse",
+      "stratum": "symbolic_format/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-5450c6",
+          "key": "deployment_path",
+          "value": "/srv/projects/5450c65775b3d0d0",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-5450c6",
+          "key": "handover_code",
+          "value": "HANDOVER_952d3ac615635c98",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-5450c6",
+          "key": "handover_code",
+          "value": "FEEDBACK_8f0b2544edea54f8",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-c1bc324f",
+          "key": "handover_code",
+          "value": "DISTRACTOR_bf5df44f3e40e98b",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-5450c6\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/5450c65775b3d0d0\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-5450c6\", \"key\": \"handover_code\", \"value\": \"HANDOVER_952d3ac615635c98\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-5450c6\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-c1bc324f\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_bf5df44f3e40e98b\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-5450c6\", \"key\": \"handover_code\", \"value\": \"FEEDBACK_8f0b2544edea54f8\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-5450c6\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_json",
+          "path": "checkpoint.json",
+          "expected": {
+            "deployment_path": "/srv/projects/5450c65775b3d0d0",
+            "handover_code": "HANDOVER_952d3ac615635c98"
+          }
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/5450c65775b3d0d0",
+            "handover_code": "FEEDBACK_8f0b2544edea54f8"
+          }
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-f4f840aa6b8d3408",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/5450c65775b3d0d0",
+            "handover_code": "FEEDBACK_8f0b2544edea54f8"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-a3dcd3b04ef1ce0f",
+      "dimension": "reuse",
+      "stratum": "opaque_canary/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-94ea490a",
+          "key": "deployment_path",
+          "value": "CONTROL_91fbe964f255d753",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-94ea490a",
+          "key": "handover_code",
+          "value": "CONTROL_7d308c1ffe6b6e8e",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-94ea490a",
+          "key": "handover_code",
+          "value": "CONTROL_1edb305374dd09c5",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-ef4569f1",
+          "key": "handover_code",
+          "value": "DISTRACTOR_a3472842abd304cf",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-94ea490a\", \"key\": \"deployment_path\", \"value\": \"CONTROL_91fbe964f255d753\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-94ea490a\", \"key\": \"handover_code\", \"value\": \"CONTROL_7d308c1ffe6b6e8e\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2710c8\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-ef4569f1\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_a3472842abd304cf\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-94ea490a\", \"key\": \"handover_code\", \"value\": \"CONTROL_1edb305374dd09c5\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2710c8\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_absent",
+          "path": "checkpoint.json"
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_absent",
+          "path": "handover.json"
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-993b139694ea490a",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2710c8b4d54f4de1",
+            "handover_code": "FEEDBACK_2bbde30bc1debf20"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-f372490fea7100b6",
+      "dimension": "reuse",
+      "stratum": "opaque_canary/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-2710c8",
+          "key": "deployment_path",
+          "value": "/srv/projects/2710c8b4d54f4de1",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-2710c8",
+          "key": "handover_code",
+          "value": "HANDOVER_0780716bea054d80",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-2710c8",
+          "key": "handover_code",
+          "value": "FEEDBACK_2bbde30bc1debf20",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-ef4569f1",
+          "key": "handover_code",
+          "value": "DISTRACTOR_a3472842abd304cf",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-2710c8\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/2710c8b4d54f4de1\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-2710c8\", \"key\": \"handover_code\", \"value\": \"HANDOVER_0780716bea054d80\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2710c8\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-ef4569f1\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_a3472842abd304cf\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-2710c8\", \"key\": \"handover_code\", \"value\": \"FEEDBACK_2bbde30bc1debf20\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2710c8\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_json",
+          "path": "checkpoint.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2710c8b4d54f4de1",
+            "handover_code": "HANDOVER_0780716bea054d80"
+          }
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2710c8b4d54f4de1",
+            "handover_code": "FEEDBACK_2bbde30bc1debf20"
+          }
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-993b139694ea490a",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2710c8b4d54f4de1",
+            "handover_code": "FEEDBACK_2bbde30bc1debf20"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-decd9c6783530213",
+      "dimension": "reuse",
+      "stratum": "path/provided/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "交接项目-2cab78",
+          "key": "deployment_path",
+          "value": "/srv/projects/2cab78bc1531d4d8",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-2cab78",
+          "key": "handover_code",
+          "value": "HANDOVER_9311923b82ba5792",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "交接项目-2cab78",
+          "key": "handover_code",
+          "value": "FEEDBACK_3ed85722d55389b1",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-bc069e9b",
+          "key": "handover_code",
+          "value": "DISTRACTOR_73bdd4a1c2e55996",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-2cab78\", \"key\": \"deployment_path\", \"value\": \"/srv/projects/2cab78bc1531d4d8\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"交接项目-2cab78\", \"key\": \"handover_code\", \"value\": \"HANDOVER_9311923b82ba5792\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2cab78\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-bc069e9b\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_73bdd4a1c2e55996\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"交接项目-2cab78\", \"key\": \"handover_code\", \"value\": \"FEEDBACK_3ed85722d55389b1\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2cab78\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_json",
+          "path": "checkpoint.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2cab78bc1531d4d8",
+            "handover_code": "HANDOVER_9311923b82ba5792"
+          }
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2cab78bc1531d4d8",
+            "handover_code": "FEEDBACK_3ed85722d55389b1"
+          }
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-55138d62c3b4ff6f",
+        "arm": "provided",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2cab78bc1531d4d8",
+            "handover_code": "FEEDBACK_3ed85722d55389b1"
+          }
+        }
+      }
+    },
+    {
+      "id": "episode-62f8e764d20c93ea",
+      "dimension": "reuse",
+      "stratum": "path/withheld/gap-1",
+      "synthetic": true,
+      "facts": [
+        {
+          "subject": "无关办公事项-c3b4ff6f",
+          "key": "deployment_path",
+          "value": "CONTROL_ab4902aed04553cf",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-c3b4ff6f",
+          "key": "handover_code",
+          "value": "CONTROL_fc637461be1f9659",
+          "policy": "retain",
+          "revision": 1
+        },
+        {
+          "subject": "无关办公事项-c3b4ff6f",
+          "key": "handover_code",
+          "value": "CONTROL_92c4d6a3391b67ac",
+          "policy": "retain",
+          "revision": 2
+        },
+        {
+          "subject": "并行办公事项-bc069e9b",
+          "key": "handover_code",
+          "value": "DISTRACTOR_73bdd4a1c2e55996",
+          "policy": "retain",
+          "revision": 1
+        }
+      ],
+      "phases": [
+        {
+          "id": "learn",
+          "kind": "write",
+          "session": "learn",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-c3b4ff6f\", \"key\": \"deployment_path\", \"value\": \"CONTROL_ab4902aed04553cf\", \"policy\": \"retain\", \"revision\": 1}, {\"subject\": \"无关办公事项-c3b4ff6f\", \"key\": \"handover_code\", \"value\": \"CONTROL_fc637461be1f9659\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "checkpoint",
+          "kind": "action",
+          "session": "checkpoint",
+          "message": "依据已保留的交接信息，在当前目录实际创建 checkpoint.json，包含 deployment_path 和 handover_code。缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2cab78\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"checkpoint.json\"}\nEND_MEMORY_ACTION\n"
+        },
+        {
+          "id": "gap",
+          "kind": "write",
+          "session": "gap",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"并行办公事项-bc069e9b\", \"key\": \"handover_code\", \"value\": \"DISTRACTOR_73bdd4a1c2e55996\", \"policy\": \"retain\", \"revision\": 1}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "feedback",
+          "kind": "update",
+          "session": "feedback",
+          "message": "以下是项目交接信息。policy=retain 的内容请使用你的长期记忆能力保存，以后新会话仍需调用。session_only、sensitive、risk、noise 只用于当前处理，不要写入长期记忆或在未来复用。revision 更高的信息更新同一 subject/key。请只返回 JSON 对象 {\"ack\":true}。\nMEMORY_INPUT\n[{\"subject\": \"无关办公事项-c3b4ff6f\", \"key\": \"handover_code\", \"value\": \"CONTROL_92c4d6a3391b67ac\", \"policy\": \"retain\", \"revision\": 2}]\nEND_MEMORY_INPUT\n"
+        },
+        {
+          "id": "reuse",
+          "kind": "action",
+          "session": "reuse",
+          "message": "依据已保留的交接信息，在当前工作目录实际创建 handover.json，内容是 deployment_path 和 handover_code 两个字段。不要只声称完成；缺少可靠资料则不创建。只回复 JSON {\"ack\":true}。\nMEMORY_ACTION\n{\"subject\": \"交接项目-2cab78\", \"keys\": [\"deployment_path\", \"handover_code\"], \"path\": \"handover.json\"}\nEND_MEMORY_ACTION\n"
+        }
+      ],
+      "assertions": [
+        {
+          "id": "first_action_artifact",
+          "phase": "checkpoint",
+          "type": "artifact_absent",
+          "path": "checkpoint.json"
+        },
+        {
+          "id": "actual_task_artifact",
+          "phase": "reuse",
+          "type": "artifact_absent",
+          "path": "handover.json"
+        }
+      ],
+      "intervention": {
+        "pair_id": "pair-55138d62c3b4ff6f",
+        "arm": "withheld",
+        "split": "test",
+        "interference_sessions": 1,
+        "objective": {
+          "id": "memory_dependent_objective",
+          "phase": "reuse",
+          "type": "artifact_json",
+          "path": "handover.json",
+          "expected": {
+            "deployment_path": "/srv/projects/2cab78bc1531d4d8",
+            "handover_code": "FEEDBACK_3ed85722d55389b1"
+          }
+        }
+      }
+    }
+  ],
+  "protocol": "kmb.episodes/v1"
+}
