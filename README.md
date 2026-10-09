@@ -18,6 +18,8 @@ python3 kmb compare results/episode-agents/*/repeat-* --out results/episode-repo
 
 报告增加「配对资料收益」及 `paired_metrics.csv`。详细定义见 [增量任务协议](docs/EPISODIC_PROTOCOL.md)，参考工作及录用状态见 [顶会方法调研](docs/TOPCONF_METHODS_20261009.md)。这是资料可用性对照，不是声称关闭了框架全部记忆通道；当前留出按合成事实世界划分，不称为未见模板泛化。
 
+本轮两款真实框架已各完成 88 阶段先导运行，观察到合法记录未调用、相近项目错误关联，以及独立的运行异常；完整配对为每端 5/6。全量 84 项回归、六种对照三轮及 808 阶段工程压力校准均已完成。结果、分母与原始证据见 [0.2 实测报告](docs/RESULTS_V020_20261009.md)。
+
 ## 快速运行
 
 核心工具只依赖 Python 标准库，要求 Python 3.10 或更高版本。无需下载 embedding 模型、安装 ONNX Runtime 或连接模型服务，即可运行评分器校准。
