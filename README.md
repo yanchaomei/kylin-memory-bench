@@ -6,6 +6,15 @@
 
 本项目对应「面向 openKylin 操作系统的智能体长期记忆自动化评测 Benchmark 设计」。它是通用评测工具，不要求参评智能体使用 MemoryOS-OK。六个维度独立评分：长期保持、记忆调用、动态更新、相近区分、边界识别、任务复用。
 
+## 2026-10-16 验证进展
+
+- 完整 Linux 研究已经完成：两款真实智能体各三轮，共 2,112 阶段；12,702 个原始文件已全部核验，六份运行可从证据重新评分。
+- 三轮全部成功的案例比例为 Hermes 89.58%、OpenClaw 70.83%；能力结果、运行异常和完整证据子集分别分析，见 [完整实测报告](docs/RESULTS_FULL48_20261016.md)。
+- openKylin 2.0 SP2 x86_64 已通过 96 项完整回归，两款固定版本框架各完成 12 条增量案例、88 个真实阶段，合计 176 阶段全部正常完成，证据与报告核验通过，见 [目标系统验收](docs/OPENKYLIN_ACCEPTANCE_20261016.md)。
+- 项目已独立开源：[yanchaomei/kylin-memory-bench](https://github.com/yanchaomei/kylin-memory-bench)。本仓库只包含 Benchmark，不需要安装上层 MemoryOS-OK 的依赖。
+
+参赛材料：[14 页作品介绍 PDF](output/pdf/KylinMemoryBench_作品介绍_20261016.pdf) · [演示与完整证据发布页](https://github.com/yanchaomei/kylin-memory-bench/releases/tag/v0.2.0-oscc)。演示来自真实 openKylin UKUI 会话，约 3 分 50 秒，含中文旁白、字幕、实际文件行动及多维结果；等待过程有明确加速标注。
+
 ## 0.2 增量任务与配对对照
 
 新协议加入多次干扰、v1→v2→v3→迟到 v1、两次真实文件行动和资料可用性对照。同一任务两臂的查询/行动文字相同，分别提供或扣除目标资料，自动核对任务目标是否达成。正确拒答与目标达成分开计分；按独立任务配对重采样，保留覆盖率和置信区间。导入按注册生成器重新生成核对，拒绝改写实验臂、复制任务换 ID 或修改目标真值。
@@ -22,7 +31,7 @@ python3 kmb compare results/episode-agents/*/repeat-* --out results/episode-repo
 
 ### Linux 完整重复研究
 
-0.2 工程回归已在 macOS arm64 与 Ubuntu 24.04.1 x86_64 各通过 **96 项测试**。Linux 已完成 Debian 包构建、独立解包校准，以及两款固定版本 CLI 的真实 API 连通性任务。测试集的 48 条案例、24 个独立配对、每端三轮研究已经启动；六轮共 2,112 个分配阶段，最终分数待完整归档后发布。当前先导与历史结果不与这轮未完成研究混算。
+0.2 工程回归已在 macOS arm64、Ubuntu 24.04.1 x86_64 和 openKylin 2.0 SP2 x86_64 各通过 **96 项测试**。Linux 已完成 Debian 包构建、独立解包校准及两款固定版本 CLI 的真实 API 调用。48 条案例、24 个独立配对、每端三轮研究已全部完成；六轮 2,112 个阶段的原始证据和重算结果均通过核验，先导与不同平台的结果分别统计。
 
 从源码目录调度完整独立轮次，并在所有轮次完成后分析：
 
@@ -35,10 +44,11 @@ python3 scripts/analyze_study.py results/full48-study/*/repeat-* --out results/f
 
 ## 快速运行
 
-核心工具只依赖 Python 标准库，要求 Python 3.10 或更高版本。无需下载 embedding 模型、安装 ONNX Runtime 或连接模型服务，即可运行评分器校准。
+核心工具只依赖 Python 标准库，要求 Python 3.10 或更高版本。无需下载 embedding 模型、安装 ONNX Runtime 或连接模型服务，即可运行评分器校准。以下命令从本独立仓库根目录执行；如果使用上层 MemoryOS-OK 工程，先进入其中的 `benchmarks/kylin-memory-bench` 目录。
 
 ```bash
-cd benchmarks/kylin-memory-bench
+git clone https://github.com/yanchaomei/kylin-memory-bench.git
+cd kylin-memory-bench
 python3 kmb doctor
 python3 -m unittest discover -s tests -v
 python3 kmb validate data/sample.json
@@ -58,6 +68,8 @@ python3 kmb compare results/real-eval/*/repeat-* --out results/real-report
 ```
 
 已验证的统一 API 配置是 `configs/real-api.json`，两款框架使用同一 `gpt-6-sol` 请求模型，接入方式见 [API 后端说明](docs/API_BACKEND.md)。`openclaw.json`、`hermes.json` 和 `*-anthropic.json` 是登录后端及备用模板，使用前必须验证对应账号和模型服务。配置中不填密钥。每条案例使用全新的框架状态目录，不继承个人记忆、聊天历史或消息渠道。每个阶段开新进程和新会话，同案例保留长期存储，不同案例完全分开。
+
+复现真实评测时，先安装两款框架，并将两端的 `base_url`、`model` 改为评测方有权使用的同一服务与模型。`CODEX_RELAY_API_KEY` 只是本次配置选择的环境变量名称，不要求购买或登录 Codex；可将两端 `api_key_env` 一起改为自己的变量名。仓库不附账号凭据，离线评分器校准无需这些配置。
 
 已配置模型凭据环境变量时，可直接使用 HTTPS API 评测自然语言办公交接：
 
