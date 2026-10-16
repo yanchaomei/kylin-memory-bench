@@ -35,6 +35,7 @@ CORE_SHA = "009a6472cd96347aa121669cb19daebb7a59a5be367943525cdc25e102cebb30"
 DATA_SHA = "5ae280f9b16c8afabadaee29886c4a9b2c5ee1863284316a241d87c1bf69e2bb"
 PILOT_SHA = "48c56ba68a8d43a8f1c59eb5985726a70ebb53d5ff02fe2154a02e9b4d25995a"
 AXES = ("persistence", "retrieval", "update", "discrimination", "boundary", "reuse")
+PAGE_COUNT = 14
 LABELS = ("长期保持", "记忆调用", "动态更新", "相近区分", "边界识别", "任务复用")
 W, H = A4
 MARGIN = 43.0
@@ -397,8 +398,18 @@ def verify_document_values(comparison, reliability):
     samples = [json.loads(x) for x in re.findall(r"```json\n(.*?)\n```", source, re.DOTALL)]
     data = read_json(ROOT / "data/episodes-test-48.json")
     example = next(c for c in data["cases"] if c["id"] == "episode-88ad1945ff8583b1")
-    if samples != [example["facts"][2], example["assertions"][0]]:
+    if samples[:2] != [example["facts"][2], example["assertions"][0]]:
         raise ValueError("Document JSON examples differ from frozen dataset")
+    for sample in samples[2:]:
+        if sample.get("schema") == "kmb.request/v1":
+            required = {"schema", "case_id", "phase_id", "kind", "session_id", "message", "workspace"}
+            if set(sample) != required or not all(isinstance(value, str) for value in sample.values()):
+                raise ValueError("Document request example differs from adapter whitelist")
+        elif isinstance(sample.get("response"), str):
+            if set(sample) - {"response", "session_id"} or not isinstance(json.loads(sample["response"]), dict):
+                raise ValueError("Document bridge example is not a structured response")
+        else:
+            raise ValueError("Additional document JSON example is not a registered interface example")
     return {"result_tables_match_reports": True, "json_examples_match_dataset": True,
             "checked_rows": checks}
 
@@ -781,8 +792,8 @@ def build_pdf(path, comparison, platform, target):
               .replace("{{platform_delivery}}", delivery))
     parts = re.split(r"<!-- page:(\d{2}) -->", source)
     pages = list(zip(parts[1::2], parts[2::2]))
-    if len(pages) != 14 or [int(p[0]) for p in pages] != list(range(1, 15)):
-        raise ValueError("Expected 14 ordered document pages")
+    if len(pages) != PAGE_COUNT or [int(p[0]) for p in pages] != list(range(1, PAGE_COUNT + 1)):
+        raise ValueError(f"Expected {PAGE_COUNT} ordered document pages")
     canvas = Canvas(str(guarded_output(path)), pagesize=A4, pageCompression=1)
     canvas.setTitle("Kylin Memory Bench - OSCC openKylin 长期记忆 Benchmark 作品介绍")
     canvas.setAuthor("Kylin Memory Bench")
@@ -823,7 +834,7 @@ def check_document(pdf, layout):
     reader = PdfReader(str(pdf))
     text = "\n".join(p.extract_text() for p in reader.pages)
     checks = {
-        "page_count_14": len(reader.pages) == 14,
+        f"page_count_{PAGE_COUNT}": len(reader.pages) == PAGE_COUNT,
         "no_replacement_characters": "\ufffd" not in text and "\u25a0" not in text,
         "all_content_blocks_fit": all(b["bottom_clearance"] >= 0 for b in layout),
         "no_template_markers": "{{" not in text,
@@ -834,7 +845,7 @@ def check_document(pdf, layout):
         "core_sha256_present": CORE_SHA in text.replace("\n", ""),
         "data_sha256_present": DATA_SHA in text.replace("\n", ""),
         "all_pages_have_sources": all("来源：" in p.extract_text() for p in reader.pages),
-        "outline_entries_14": len(reader.outline) == 14,
+        f"outline_entries_{PAGE_COUNT}": len(reader.outline) == PAGE_COUNT,
         "full_linux_archive_audit_closed": "12,702" in text and "12,701" in text
             and "full48-audit-20261016/audit.json" in text.replace("\n", "")
             and "收回与完整性核验仍进行中" not in text,
@@ -865,8 +876,8 @@ def render_pages(pdf):
     subprocess.run([tool, "-r", "120", "-png", str(pdf), str(folder / "page")], check=True,
                    capture_output=True, text=True)
     paths = sorted(folder.glob("page-*.png"))
-    if len(paths) != 14:
-        raise ValueError("Expected 14 rendered page images")
+    if len(paths) != PAGE_COUNT:
+        raise ValueError(f"Expected {PAGE_COUNT} rendered page images")
     sheets = []
     for start in range(0, len(paths), 4):
         group = paths[start:start + 4]

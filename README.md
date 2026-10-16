@@ -15,6 +15,8 @@
 
 参赛材料：[14 页作品介绍 PDF](output/pdf/KylinMemoryBench_作品介绍_20261016.pdf) · [演示与完整证据发布页](https://github.com/yanchaomei/kylin-memory-bench/releases/tag/v0.2.0-oscc)。演示来自真实 openKylin UKUI 会话，约 3 分 50 秒，含中文旁白、字幕、实际文件行动及多维结果；等待过程有明确加速标注。
 
+**技术主线增强版 R2：**[增强版作品说明](output/pdf/story-r2/KylinMemoryBench_作品介绍_20261016.pdf) · [三项技术演示与复现指南](docs/DEMO_STORY_R2_20261016.md) · [增强版发布页](https://github.com/yanchaomei/kylin-memory-bench/releases/tag/v0.2.0-oscc-r2)。围绕配对式增量任务、四路证据与分层判定、重复可靠性与证据重算组织材料；工具核心、实验输入、实测结果和 Debian 包不变，首版继续保留。
+
 ## 0.2 增量任务与配对对照
 
 新协议加入多次干扰、v1→v2→v3→迟到 v1、两次真实文件行动和资料可用性对照。同一任务两臂的查询/行动文字相同，分别提供或扣除目标资料，自动核对任务目标是否达成。正确拒答与目标达成分开计分；按独立任务配对重采样，保留覆盖率和置信区间。导入按注册生成器重新生成核对，拒绝改写实验臂、复制任务换 ID 或修改目标真值。

@@ -1,0 +1,17 @@
+{
+  "schema": "kmb.submission-platform/v1",
+  "system": "openKylin 2.0 SP2 (nile)，内核 6.6.0-19-generic",
+  "access_status": "KVM 虚拟机，真实 UKUI 私有 X11 会话",
+  "acceptance_status": "目标平台增量任务验收完成；两端共 176 阶段正常结束，0 运行异常",
+  "identity_receipt": "x86_64 / Python 3.12.2",
+  "framework_receipt": "OpenClaw 2026.3.8 (3caab92) / Hermes 0.8.0 (2026.4.8)，OpenAI SDK 2.31.0",
+  "model_receipt": "同一 HTTPS Responses 入口，请求 gpt-6-sol，显式客户端推理设置 off",
+  "regression_receipt": "完整 unittest 96 项通过，无跳过，162.003 s",
+  "real_agent_receipt": "data/episodes-pilot-12.json；6 配对、12 案例、88 阶段，每端各 1 轮",
+  "debian_receipt": "适配 KARE 系统的用户级一键安装已通过；Debian 包独立解包后启动成功，六种 fixture 各 6 案例/22 阶段校准通过（共 36 案例/132 阶段）。",
+  "installation_demo_receipt": "真实 UKUI 录屏剪辑 3 分 51 秒，配中文旁白与字幕；[增强版发布页](https://github.com/yanchaomei/kylin-memory-bench/releases/tag/v0.2.0-oscc-r2)提供视频与校验摘要",
+  "evidence_refs": [
+    "results/openkylin-episode-report-20261016/comparison.json",
+    "results/openkylin-audit-20261016/audit.json"
+  ]
+}
